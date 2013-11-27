@@ -2,7 +2,7 @@
 
 > Detect whether a terminal supports color.
 
-*Used in the terminal color module [chalk](https://github.com/sindresorhus/chalk).*
+Used in the terminal color module [chalk](https://github.com/sindresorhus/chalk).
 
 
 ## Install
@@ -20,9 +20,9 @@ if (hasColor) {
 }
 ```
 
-It can be overriden by the user with the flags `--color` and `--no-color`.
+It obeys the CLI flags `--color` and `--no-color`.
 
 
 ## License
 
-MIT License • © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
