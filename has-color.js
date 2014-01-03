@@ -1,7 +1,5 @@
 'use strict';
 module.exports = (function () {
-	var term;
-
 	if (process.argv.indexOf('--no-color') !== -1) {
 		return false;
 	}
@@ -22,13 +20,5 @@ module.exports = (function () {
 		return true;
 	}
 
-	term = process.env.TERM;
-
-	if (!term) {
-		return false;
-	}
-
-	term = term.toLowerCase();
-
-	return term.indexOf('color') !== -1 || term === 'xterm' || term === 'linux';
+	return /^screen|^xterm|color|linux/i.test(process.env.TERM);
 })();
