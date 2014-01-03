@@ -1,6 +1,6 @@
 {
   "name": "has-color",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Detect whether a terminal supports color",
   "keywords": [
     "color",
