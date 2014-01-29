@@ -20,5 +20,5 @@ module.exports = (function () {
 		return true;
 	}
 
-	return /^screen|^xterm|color|linux/i.test(process.env.TERM);
+	return /^screen|^xterm|color|ansi|linux/i.test(process.env.TERM);
 })();
