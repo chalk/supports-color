@@ -8,7 +8,7 @@ module.exports = (function () {
 		return true;
 	}
 
-	if (!process.stdout.isTTY) {
+	if (!process.stdout || !process.stdout.isTTY) {
 		return false;
 	}
 
