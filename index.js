@@ -20,5 +20,13 @@ module.exports = (function () {
 		return true;
 	}
 
-	return /^screen|^xterm|color|ansi|cygwin|linux/i.test(process.env.TERM);
+	if (process.env.TERM === 'dumb') {
+		return false;
+	}
+
+	if (/^screen|^xterm|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
+		return true;
+	}
+
+	return false;
 })();
