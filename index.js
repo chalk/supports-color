@@ -24,7 +24,7 @@ module.exports = (function () {
 		return false;
 	}
 
-	if (/^screen|^xterm|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
+	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return true;
 	}
 
