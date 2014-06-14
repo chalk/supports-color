@@ -23,6 +23,22 @@ if (supportsColor) {
 It obeys the `--color` and `--no-color` CLI flags.
 
 
+## CLI
+
+```sh
+$ npm install --global supports-color
+```
+
+```sh
+$ supports-color --help
+
+Usage
+  $ supports-color
+
+# Exits with code 0 if color is supported and 1 if not
+```
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
