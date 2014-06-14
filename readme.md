@@ -1,24 +1,22 @@
-# has-color [![Build Status](https://travis-ci.org/sindresorhus/has-color.svg?branch=master)](https://travis-ci.org/sindresorhus/has-color)
+# supports-color [![Build Status](https://travis-ci.org/sindresorhus/supports-color.svg?branch=master)](https://travis-ci.org/sindresorhus/supports-color)
 
-> Detect whether a terminal supports color.
-
-Used in the terminal color module [chalk](https://github.com/sindresorhus/chalk).
+> Detect whether a terminal supports color
 
 
 ## Install
 
-```bash
-$ npm install --save has-color
+```sh
+$ npm install --save supports-color
 ```
 
 
 ## Usage
 
 ```js
-var hasColor = require('has-color');
+var supportsColor = require('supports-color');
 
-if (hasColor) {
-	console.log('Terminal supports color.');
+if (supportsColor) {
+	console.log('Terminal supports color');
 }
 ```
 
@@ -27,4 +25,4 @@ It obeys the `--color` and `--no-color` CLI flags.
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
