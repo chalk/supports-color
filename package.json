@@ -45,6 +45,7 @@
     "detect"
   ],
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "require-uncached": "^1.0.2"
   }
 }
