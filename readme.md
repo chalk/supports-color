@@ -29,13 +29,13 @@ It obeys the `--color` and `--no-color` CLI flags.
 $ npm install --global supports-color
 ```
 
-```sh
+```
 $ supports-color --help
 
-Usage
-  $ supports-color
+  Usage
+    supports-color
 
-# Exits with code 0 if color is supported and 1 if not
+  Exits with code 0 if color is supported and 1 if not
 ```
 
 
