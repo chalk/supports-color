@@ -27,3 +27,18 @@ it('should return true if `COLORTERM` is in env', function () {
 	process.env.COLORTERM = true;
 	assert.equal(requireUncached('./'), true);
 });
+
+it('should support `--color=true` flag', function () {
+	process.argv = ['--color=true'];
+	assert.equal(requireUncached('./'), true);
+});
+
+it('should support `--color=always` flag', function () {
+	process.argv = ['--color=always'];
+	assert.equal(requireUncached('./'), true);
+});
+
+it('should support `--color=false` flag', function () {
+	process.argv = ['--color=false'];
+	assert.equal(requireUncached('./'), false);
+});

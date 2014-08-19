@@ -1,10 +1,15 @@
 'use strict';
+var argv = process.argv;
+
 module.exports = (function () {
-	if (process.argv.indexOf('--no-color') !== -1) {
+	if (argv.indexOf('--no-color') !== -1 ||
+		argv.indexOf('--color=false') !== -1) {
 		return false;
 	}
 
-	if (process.argv.indexOf('--color') !== -1) {
+	if (argv.indexOf('--color') !== -1 ||
+		argv.indexOf('--color=true') !== -1 ||
+		argv.indexOf('--color=always') !== -1) {
 		return true;
 	}
 
