@@ -18,8 +18,18 @@ it('should return false if --no-color flag is used', function () {
 	assert.equal(requireUncached('./'), false);
 });
 
+it('should return false if --no-colors flag is used', function () {
+	process.argv = ['--no-colors'];
+	assert.equal(requireUncached('./'), false);
+});
+
 it('should return true if --color flag is used', function () {
 	process.argv = ['--color'];
+	assert.equal(requireUncached('./'), true);
+});
+
+it('should return true if --colors flag is used', function () {
+	process.argv = ['--colors'];
 	assert.equal(requireUncached('./'), true);
 });
 
