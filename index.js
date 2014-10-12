@@ -3,11 +3,13 @@ var argv = process.argv;
 
 module.exports = (function () {
 	if (argv.indexOf('--no-color') !== -1 ||
+		argv.indexOf('--no-colors') !== -1 ||
 		argv.indexOf('--color=false') !== -1) {
 		return false;
 	}
 
 	if (argv.indexOf('--color') !== -1 ||
+		argv.indexOf('--colors') !== -1 ||
 		argv.indexOf('--color=true') !== -1 ||
 		argv.indexOf('--color=always') !== -1) {
 		return true;
