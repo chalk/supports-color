@@ -31,6 +31,10 @@ module.exports = (function () {
 		return false;
 	}
 
+	if ('SUPPORTS_COLOR' in process.env) {
+		return true;
+	}
+
 	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return true;
 	}
