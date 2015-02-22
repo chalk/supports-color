@@ -8,6 +8,11 @@ beforeEach(function () {
 	process.env = {};
 });
 
+it('should return true if `FORCE_COLOR` is in env', function () {
+	process.env.FORCE_COLOR = true;
+	assert.equal(requireUncached('./'), true);
+});
+
 it('should return false if not TTY', function () {
 	process.stdout.isTTY = false;
 	assert.equal(requireUncached('./'), false);
