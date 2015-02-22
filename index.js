@@ -19,6 +19,10 @@ module.exports = (function () {
 		return false;
 	}
 
+	if ('UPSTART_JOB' in process.env) {
+		return false;
+	}
+
 	if (process.platform === 'win32') {
 		return true;
 	}

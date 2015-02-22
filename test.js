@@ -33,6 +33,11 @@ it('should return true if --colors flag is used', function () {
 	assert.equal(requireUncached('./'), true);
 });
 
+it('should return false if `UPSTART_JOB` is in env', function () {
+	process.env.UPSTART_JOB = true;
+	assert.equal(requireUncached('./'), false);
+});
+
 it('should return true if `COLORTERM` is in env', function () {
 	process.env.COLORTERM = true;
 	assert.equal(requireUncached('./'), true);
