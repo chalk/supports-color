@@ -5,7 +5,7 @@
 
 ## Install
 
-```sh
+```
 $ npm install --save supports-color
 ```
 
@@ -25,7 +25,7 @@ It obeys the `--color` and `--no-color` CLI flags.
 
 ## CLI
 
-```sh
+```
 $ npm install --global supports-color
 ```
 
