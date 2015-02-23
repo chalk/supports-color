@@ -2,6 +2,10 @@
 var argv = process.argv;
 
 module.exports = (function () {
+	if ('FORCE_COLOR' in process.env) {
+		return true;
+	}
+
 	if (argv.indexOf('--no-color') !== -1 ||
 		argv.indexOf('--no-colors') !== -1 ||
 		argv.indexOf('--color=false') !== -1) {
