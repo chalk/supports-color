@@ -22,6 +22,8 @@ if (supportsColor) {
 
 It obeys the `--color` and `--no-color` CLI flags.
 
+For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
+
 
 ## CLI
 
