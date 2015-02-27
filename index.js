@@ -2,22 +2,59 @@
 var argv = process.argv;
 
 module.exports = (function () {
+    var index;
+
 	if ('FORCE_COLOR' in process.env) {
 		return true;
 	}
 
-	if (argv.indexOf('--no-color') !== -1 ||
-		argv.indexOf('--no-colors') !== -1 ||
-		argv.indexOf('--color=false') !== -1) {
-		return false;
-	}
+    // Do not consider arguments beyond the -- flag terminator.
+    index = argv.indexOf('--');
+    if (index !== -1) {
+        argv = argv.slice(0, index);
+    }
 
-	if (argv.indexOf('--color') !== -1 ||
-		argv.indexOf('--colors') !== -1 ||
-		argv.indexOf('--color=true') !== -1 ||
-		argv.indexOf('--color=always') !== -1) {
-		return true;
-	}
+    index = argv.indexOf('--no-color');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return false;
+    }
+
+    index = argv.indexOf('--no-colors');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return false;
+    }
+
+    index = argv.indexOf('--color=false');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return false;
+    }
+
+    index = argv.indexOf('--color');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return true;
+    }
+
+    index = argv.indexOf('--colors');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return true;
+    }
+
+    index = argv.indexOf('--color=true');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return true;
+    }
+
+    index = argv.indexOf('--color=always');
+    if (index !== -1) {
+        process.argv.splice(index, 1);
+        return true;
+    }
 
 	if (process.stdout && !process.stdout.isTTY) {
 		return false;
