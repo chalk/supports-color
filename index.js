@@ -2,20 +2,27 @@
 var argv = process.argv;
 
 module.exports = (function () {
-	if ('FORCE_COLOR' in process.env) {
+	if ('FORCE_COLOR' in process.env || 'FORCE_COLOUR' in process.env) {
 		return true;
 	}
 
 	if (argv.indexOf('--no-color') !== -1 ||
+		argv.indexOf('--no-colour') !== -1 ||
 		argv.indexOf('--no-colors') !== -1 ||
-		argv.indexOf('--color=false') !== -1) {
+		argv.indexOf('--no-colours') !== -1 ||
+		argv.indexOf('--color=false') !== -1 ||
+		argv.indexOf('--colour=false') !== -1) {
 		return false;
 	}
 
 	if (argv.indexOf('--color') !== -1 ||
+		argv.indexOf('--colour') !== -1 ||
 		argv.indexOf('--colors') !== -1 ||
+		argv.indexOf('--colours') !== -1 ||
 		argv.indexOf('--color=true') !== -1 ||
-		argv.indexOf('--color=always') !== -1) {
+		argv.indexOf('--colour=true') !== -1 ||
+		argv.indexOf('--color=always') !== -1 ||
+		argv.indexOf('--colour=always') !== -1) {
 		return true;
 	}
 
