@@ -13,9 +13,7 @@
     "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
     "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)"
   ],
-  "bin": {
-    "supports-color": "cli.js"
-  },
+  "bin": "cli.js",
   "engines": {
     "node": ">=0.8.0"
   },
@@ -27,6 +25,7 @@
     "cli.js"
   ],
   "keywords": [
+    "cli-app",
     "cli",
     "bin",
     "color",
