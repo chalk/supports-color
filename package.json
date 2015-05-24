@@ -47,6 +47,9 @@
     "capability",
     "detect"
   ],
+  "dependencies": {
+    "meow": "^3.1.0"
+  },
   "devDependencies": {
     "mocha": "*",
     "require-uncached": "^1.0.2"
