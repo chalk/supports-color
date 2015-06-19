@@ -9,7 +9,7 @@ meow({
 		'  supports-color',
 		'',
 		'Exits with code 0 if color is supported and 1 if not'
-	].join('\n')
+	]
 });
 
 process.exit(supportsColor ? 0 : 1);
