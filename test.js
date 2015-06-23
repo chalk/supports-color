@@ -62,3 +62,8 @@ it('should support `--color=false` flag', function () {
 	process.argv = ['--color=false'];
 	assert.equal(requireUncached('./'), false);
 });
+
+it('should ignore post-terminator flags', function () {
+	process.argv = ['--color', '--', '--no-color'];
+	assert.equal(requireUncached('./'), true);
+});
