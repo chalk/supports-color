@@ -13,7 +13,6 @@
     "Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)",
     "Joshua Appelman <jappelman@xebia.com> (jbnicolai.com)"
   ],
-  "bin": "cli.js",
   "engines": {
     "node": ">=0.8.0"
   },
@@ -21,13 +20,9 @@
     "test": "mocha"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "index.js"
   ],
   "keywords": [
-    "cli-app",
-    "cli",
-    "bin",
     "color",
     "colour",
     "colors",
@@ -47,9 +42,6 @@
     "capability",
     "detect"
   ],
-  "dependencies": {
-    "meow": "^3.3.0"
-  },
   "devDependencies": {
     "mocha": "*",
     "require-uncached": "^1.0.2"

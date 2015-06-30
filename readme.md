@@ -25,20 +25,10 @@ It obeys the `--color` and `--no-color` CLI flags.
 For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. Trumps `--no-color`.
 
 
-## CLI
+## Related
 
-```
-$ npm install --global supports-color
-```
-
-```
-$ supports-color --help
-
-  Usage
-    supports-color
-
-  Exits with code 0 if color is supported and 1 if not
-```
+- [supports-color-cli](https://github.com/chalk/supports-color-cli) - CLI for this module
+- [chalk](https://github.com/chalk/chalk) - Terminal string styling done right
 
 
 ## License
