@@ -1,4 +1,4 @@
-# supports-color [![Build Status](https://travis-ci.org/sindresorhus/supports-color.svg?branch=master)](https://travis-ci.org/sindresorhus/supports-color)
+# supports-color [![Build Status](https://travis-ci.org/chalk/supports-color.svg?branch=master)](https://travis-ci.org/chalk/supports-color)
 
 > Detect whether a terminal supports color
 

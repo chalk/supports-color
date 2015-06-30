@@ -3,7 +3,7 @@
   "version": "1.3.1",
   "description": "Detect whether a terminal supports color",
   "license": "MIT",
-  "repository": "sindresorhus/supports-color",
+  "repository": "chalk/supports-color",
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
