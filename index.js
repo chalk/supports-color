@@ -1,12 +1,5 @@
 'use strict';
-var argv = process.argv;
-
-var terminator = argv.indexOf('--');
-var hasFlag = function (flag) {
-	flag = '--' + flag;
-	var pos = argv.indexOf(flag);
-	return pos !== -1 && (terminator !== -1 ? pos < terminator : true);
-};
+var hasFlag = require('has-flag');
 
 module.exports = (function () {
 	if ('FORCE_COLOR' in process.env) {

@@ -43,6 +43,9 @@
     "capability",
     "detect"
   ],
+  "dependencies": {
+    "has-flag": "^1.0.0"
+  },
   "devDependencies": {
     "mocha": "*",
     "require-uncached": "^1.0.2"
