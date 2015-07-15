@@ -41,7 +41,10 @@
     "support",
     "supports",
     "capability",
-    "detect"
+    "detect",
+    "truecolor",
+    "16m",
+    "million"
   ],
   "dependencies": {
     "has-flag": "^1.0.0"
