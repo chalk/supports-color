@@ -1,43 +1,65 @@
 'use strict';
 var hasFlag = require('has-flag');
 
-module.exports = (function () {
-	if ('FORCE_COLOR' in process.env) {
-		return true;
+var support = function (level) {
+	if (level === 0) {
+		return false;
+	}
+	var result = {};
+	result.level = level;
+	result.hasBasic = true;
+	result.has256 = level >= 2;
+	result.has16m = level >= 3;
+	return result;
+};
+
+var supportLevel = (function () {
+	if (hasFlag('color=16m') ||
+		hasFlag('color=full') ||
+		hasFlag('color=truecolor')) {
+		return 3;
 	}
 
-	if (hasFlag('no-color') ||
-		hasFlag('no-colors') ||
-		hasFlag('color=false')) {
-		return false;
+	if (hasFlag('color=256')) {
+		return 2;
 	}
 
 	if (hasFlag('color') ||
 		hasFlag('colors') ||
 		hasFlag('color=true') ||
 		hasFlag('color=always')) {
-		return true;
+		return 1;
 	}
 
 	if (process.stdout && !process.stdout.isTTY) {
-		return false;
+		return 0;
 	}
 
 	if (process.platform === 'win32') {
-		return true;
+		return 1;
 	}
 
 	if ('COLORTERM' in process.env) {
-		return true;
+		return 1;
 	}
 
 	if (process.env.TERM === 'dumb') {
-		return false;
+		return 0;
+	}
+
+	if (/^xterm-256(?:color)?/.test(process.env.TERM)) {
+		return 2;
 	}
 
 	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
-		return true;
+		return 1;
 	}
 
-	return false;
+	return 0;
 })();
+
+if (supportLevel === 0 && 'FORCE_COLOR' in process.env) {
+	supportLevel = 1;
+}
+
+module.exports = support(supportLevel);
