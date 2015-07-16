@@ -25,12 +25,14 @@ it('should return false if not TTY', function () {
 });
 
 it('should return false if --no-color flag is used', function () {
+	process.env = {TERM: 'xterm-256color'};
 	process.argv = ['--no-color'];
 	var result = requireUncached('./');
 	assert.equal(!!result, false);
 });
 
 it('should return false if --no-colors flag is used', function () {
+	process.env = {TERM: 'xterm-256color'};
 	process.argv = ['--no-colors'];
 	var result = requireUncached('./');
 	assert.equal(!!result, false);
@@ -67,6 +69,7 @@ it('should support `--color=always` flag', function () {
 });
 
 it('should support `--color=false` flag', function () {
+	process.env = {TERM: 'xterm-256color'};
 	process.argv = ['--color=false'];
 	var result = requireUncached('./');
 	assert.equal(!!result, false);
@@ -86,7 +89,7 @@ it('level should be 2 if `--color=256` flag is used', function () {
 });
 
 it('should support `--color=16m` flag', function () {
-	process.argv = ['--color=256'];
+	process.argv = ['--color=16m'];
 	var result = requireUncached('./');
 	assert.equal(!!result, true);
 });
@@ -103,7 +106,7 @@ it('should support `--color=truecolor` flag', function () {
 	assert.equal(!!result, true);
 });
 
-it('level should be 2 if `--color=16m` flag is used', function () {
+it('level should be 3 if `--color=16m` flag is used', function () {
 	process.argv = ['--color=16m'];
 	var result = requireUncached('./');
 	assert.equal(result.level, 3);
@@ -118,6 +121,7 @@ it('should ignore post-terminator flags', function () {
 });
 
 it('should allow tests of the properties on false', function() {
+	process.env = {TERM: 'xterm-256color'};
 	process.argv = ['--no-color'];
 	var result = requireUncached('./');
 	assert.equal(!!(result.hasBasic), false);

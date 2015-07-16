@@ -15,6 +15,12 @@ var support = function (level) {
 };
 
 var supportLevel = (function () {
+	if (hasFlag('no-color') ||
+		hasFlag('no-colors') ||
+		hasFlag('color=false')) {
+		return 0;
+	}
+
 	if (hasFlag('color=16m') ||
 		hasFlag('color=full') ||
 		hasFlag('color=truecolor')) {
