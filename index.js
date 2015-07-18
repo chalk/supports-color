@@ -69,4 +69,4 @@ if (supportLevel === 0 && 'FORCE_COLOR' in process.env) {
 	supportLevel = 1;
 }
 
-module.exports = support(supportLevel);
+module.exports = process && support(supportLevel);
