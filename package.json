@@ -19,7 +19,8 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "xo && mocha",
+    "travis": "mocha"
   },
   "files": [
     "index.js",
@@ -53,6 +54,13 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "require-uncached": "^1.0.2"
+    "require-uncached": "^1.0.2",
+    "xo": "*"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha"
+    ]
   }
 }

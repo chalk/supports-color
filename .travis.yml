@@ -7,3 +7,5 @@ node_js:
   - '0.8'
 before_install:
   - npm install -g npm
+script:
+  - npm run travis
