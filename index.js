@@ -37,6 +37,10 @@ var supportLevel = (function () {
 		hasFlag('color=always')) {
 		return 1;
 	}
+	
+	if (process.versions['electron']) {
+		return 0;
+	}
 
 	if (process.stdout && !process.stdout.isTTY) {
 		return 0;
