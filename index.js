@@ -38,6 +38,10 @@ var supportLevel = (function () {
 		return 1;
 	}
 
+	if ('electron' in process.versions) {
+		return 0;
+	}
+
 	if (process.stdout && !process.stdout.isTTY) {
 		return 0;
 	}
