@@ -38,7 +38,7 @@ var supportLevel = (function () {
 		return 1;
 	}
 	
-	if (process.versions['electron']) {
+	if ('electron' in process.versions) {
 		return 0;
 	}
 
