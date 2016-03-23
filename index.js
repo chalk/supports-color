@@ -58,7 +58,7 @@ var supportLevel = (function () {
 		return 2;
 	}
 
-	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
+	if (/^screen|^xterm|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return 1;
 	}
 
