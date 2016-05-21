@@ -46,6 +46,10 @@ var supportLevel = (function () {
 		return 1;
 	}
 
+	if ('TEAMCITY_VERSION' in process.env) {
+		return 0;
+	}
+
 	if ('COLORTERM' in process.env) {
 		return 1;
 	}
