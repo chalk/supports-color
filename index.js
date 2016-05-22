@@ -46,7 +46,7 @@ var supportLevel = (function () {
 		return 1;
 	}
 
-	if ('TEAMCITY_VERSION' in process.env) {
+	if ('CI' in process.env || 'TEAMCITY_VERSION' in process.env) {
 		return 0;
 	}
 

@@ -127,6 +127,12 @@ it('should allow tests of the properties on false', function () {
 	assert.equal(result.level > 0, false);
 });
 
+it('should return false if `CI` is in env', function () {
+	process.env.CI = 'Travis';
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), false);
+});
+
 it('should return false if `TEAMCITY_VERSION` is in env', function () {
 	process.env.TEAMCITY_VERSION = '9.0.5 (build 32523)';
 	var result = requireUncached('./');
