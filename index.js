@@ -1,6 +1,5 @@
 'use strict';
 var hasFlag = require('has-flag');
-var stdoutSupport = require('./stdout')
 
 var support = function (level) {
 	if (level === 0) {
@@ -15,8 +14,7 @@ var support = function (level) {
 	};
 };
 
-var supportLevel = (function (stream) {
-	stream = stream || process.stdout
+var checkStreamSupportLevel = function (stream) {
 	if (hasFlag('no-color') ||
 		hasFlag('no-colors') ||
 		hasFlag('color=false')) {
@@ -69,10 +67,17 @@ var supportLevel = (function (stream) {
 	}
 
 	return 0;
-})(stream);
+};
 
-if (supportLevel === 0 && 'FORCE_COLOR' in process.env) {
-	supportLevel = 1;
-}
+var checkSupport = function (stream) {
+	stream = stream || process.stdout;
+	var supportLevelForStream = checkStreamSupportLevel(stream);
 
-module.exports = (function (stream) { return process && support(supportLevel(stream)); })(stream)
+	if (supportLevelForStream === 0 && 'FORCE_COLOR' in process.env) {
+		supportLevelForStream = 1;
+	}
+
+	return process && support(supportLevelForStream);
+};
+
+module.exports = checkSupport;
