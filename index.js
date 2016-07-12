@@ -14,7 +14,7 @@ var support = function (level) {
 	};
 };
 
-var supportLevel = (function () {
+var checkStreamSupportLevel = function (stream) {
 	if (hasFlag('no-color') ||
 		hasFlag('no-colors') ||
 		hasFlag('color=false')) {
@@ -38,7 +38,7 @@ var supportLevel = (function () {
 		return 1;
 	}
 
-	if (process.stdout && !process.stdout.isTTY) {
+	if (stream && !stream.isTTY) {
 		return 0;
 	}
 
@@ -67,10 +67,17 @@ var supportLevel = (function () {
 	}
 
 	return 0;
-})();
+};
 
-if (supportLevel === 0 && 'FORCE_COLOR' in process.env) {
-	supportLevel = 1;
-}
+var checkSupport = function (stream) {
+	stream = stream || process.stdout;
+	var supportLevelForStream = checkStreamSupportLevel(stream);
 
-module.exports = process && support(supportLevel);
+	if (supportLevelForStream === 0 && 'FORCE_COLOR' in process.env) {
+		supportLevelForStream = 1;
+	}
+
+	return process && support(supportLevelForStream);
+};
+
+module.exports = checkSupport;

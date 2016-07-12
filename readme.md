@@ -13,23 +13,28 @@ $ npm install --save supports-color
 ## Usage
 
 ```js
-var supportsColor = require('supports-color');
+var supportsColor = require('supports-color')
+var stdoutColorSupport = supportsColor(process.stdout);
 
-if (supportsColor) {
+if (stdoutColorSupport) {
 	console.log('Terminal supports color');
 }
 
-if (supportsColor.has256) {
+if (stdoutColorSupport.has256) {
 	console.log('Terminal supports 256 colors');
 }
 
-if (supportsColor.has16m) {
+if (stdoutColorSupport.has16m) {
 	console.log('Terminal supports 16 million colors (truecolor)');
 }
 ```
 
 
 ## API
+
+```supportsColor(stream)```
+
+- `stream` is the stream to check for color support. Checks stdout by default if none supplied.
 
 Returns an `object`, or `false` if color is not supported.
 
