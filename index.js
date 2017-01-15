@@ -54,6 +54,11 @@ var supportLevel = (function () {
 		return 2;
 	}
 
+	if (!!process.env.SUPPORTS_COLOR) {
+		//May also flag via environment variable instead of command line flag
+		return true;
+	}
+
 	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return 1;
 	}
