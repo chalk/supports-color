@@ -54,6 +54,10 @@ var supportLevel = (function () {
 		return 2;
 	}
 
+	if ('SUPPORTS_COLOR' in process.env) {
+		return true;
+	}
+
 	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return 1;
 	}
