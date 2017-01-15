@@ -50,20 +50,20 @@ var supportLevel = (function () {
 		return 0;
 	}
 
-	if ('COLORTERM' in process.env) {
-		return 1;
-	}
-
-	if (process.env.TERM === 'dumb') {
-		return 0;
-	}
-
 	if (/^xterm-256(?:color)?/.test(process.env.TERM)) {
 		return 2;
 	}
 
 	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
 		return 1;
+	}
+
+	if ('COLORTERM' in process.env) {
+		return 1;
+	}
+
+	if (process.env.TERM === 'dumb') {
+		return 0;
 	}
 
 	return 0;

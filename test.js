@@ -138,3 +138,9 @@ it('should return false if `TEAMCITY_VERSION` is in env', function () {
 	var result = requireUncached('./');
 	assert.equal(Boolean(result), false);
 });
+
+it('should prefer level 2/xterm over COLORTERM', function () {
+	process.env = {COLORTERM: '1', TERM: 'xterm-256color'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 2);
+});
