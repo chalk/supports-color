@@ -47,6 +47,10 @@ var supportLevel = (function () {
 	}
 
 	if ('CI' in process.env) {
+		if ('TRAVIS' in process.env || process.env.CI === 'Travis') {
+			return 1;
+		}
+
 		return 0;
 	}
 

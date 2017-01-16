@@ -128,9 +128,15 @@ it('should allow tests of the properties on false', function () {
 });
 
 it('should return false if `CI` is in env', function () {
-	process.env.CI = 'Travis';
+	process.env.CI = 'AppVeyor';
 	var result = requireUncached('./');
 	assert.equal(Boolean(result), false);
+});
+
+it('should return true if `TRAVIS` is in env', function () {
+	process.env = {CI: 'Travis', TRAVIS: '1'};
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), true);
 });
 
 it('should return false if `TEAMCITY_VERSION` is in env and is < 9.1', function () {
