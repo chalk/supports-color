@@ -15,6 +15,27 @@ it('should return true if `FORCE_COLOR` is in env', function () {
 	assert.equal(result.level, 1);
 });
 
+it('should return true if `CLICOLOR_FORCE` is != 0', function () {
+	process.env.CLICOLOR_FORCE = '1';
+	process.stdout.isTTY = false;
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), true);
+	assert.equal(result.level, 1);
+});
+
+it('should return false if `CLICOLOR` is 0', function () {
+	process.env.CLICOLOR = '0';
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), false);
+});
+
+it('should return true if `CLICOLOR` is != 0', function () {
+	process.env.CLICOLOR = '1';
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), true);
+	assert.equal(result.level, 1);
+});
+
 it('should return false if not TTY', function () {
 	process.stdout.isTTY = false;
 	var result = requireUncached('./');

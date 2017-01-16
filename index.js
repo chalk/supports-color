@@ -38,6 +38,14 @@ var supportLevel = (function () {
 		return 1;
 	}
 
+	if (process.env.CLICOLOR === '0') {
+		return 0;
+	}
+
+	if ('CLICOLOR' in process.env && process.stdout && process.stdout.isTTY) {
+		return 1;
+	}
+
 	if (process.stdout && !process.stdout.isTTY) {
 		return 0;
 	}
@@ -77,7 +85,8 @@ var supportLevel = (function () {
 	return 0;
 })();
 
-if (supportLevel === 0 && 'FORCE_COLOR' in process.env) {
+if (supportLevel === 0 && ('FORCE_COLOR' in process.env ||
+    ('CLICOLOR_FORCE' in process.env && process.env.CLICOLOR_FORCE !== '0'))) {
 	supportLevel = 1;
 }
 
