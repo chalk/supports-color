@@ -58,20 +58,19 @@ var supportLevel = (function () {
 		return process.env.TEAMCITY_VERSION.match(/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/) === null ? 0 : 1;
 	}
 
-	if (/^(screen|xterm)-256(?:color)?/.test(process.env.TERM)) {
-		return 2;
-	}
-
-	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
-		return 1;
+	if ('TERM' in process.env) {
+		try {
+			var colors = require('terminfo')().maxColors;
+			if (colors && colors >= 8) {
+				return Math.floor((colors - 8) / (256 - 8)) + 1;
+			}
+		} catch (err) {
+			// swallow; it's an invalid terminal name
+		}
 	}
 
 	if ('COLORTERM' in process.env) {
 		return 1;
-	}
-
-	if (process.env.TERM === 'dumb') {
-		return 0;
 	}
 
 	return 0;
