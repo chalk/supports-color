@@ -133,10 +133,16 @@ it('should return false if `CI` is in env', function () {
 	assert.equal(Boolean(result), false);
 });
 
-it('should return false if `TEAMCITY_VERSION` is in env', function () {
+it('should return false if `TEAMCITY_VERSION` is in env and is < 9.1', function () {
 	process.env.TEAMCITY_VERSION = '9.0.5 (build 32523)';
 	var result = requireUncached('./');
 	assert.equal(Boolean(result), false);
+});
+
+it('should return level 1 if `TEAMCITY_VERSION` is in env and is >= 9.1', function () {
+	process.env.TEAMCITY_VERSION = '9.1.0 (build 32523)';
+	var result = requireUncached('./');
+	assert.equal(result.level, 1);
 });
 
 it('should prefer level 2/xterm over COLORTERM', function () {

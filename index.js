@@ -46,8 +46,12 @@ var supportLevel = (function () {
 		return 1;
 	}
 
-	if ('CI' in process.env || 'TEAMCITY_VERSION' in process.env) {
+	if ('CI' in process.env) {
 		return 0;
+	}
+
+	if ('TEAMCITY_VERSION' in process.env) {
+		return process.env.TEAMCITY_VERSION.match(/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/) === null ? 0 : 1;
 	}
 
 	if (/^xterm-256(?:color)?/.test(process.env.TERM)) {
