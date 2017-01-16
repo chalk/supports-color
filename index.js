@@ -54,7 +54,7 @@ var supportLevel = (function () {
 		return process.env.TEAMCITY_VERSION.match(/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/) === null ? 0 : 1;
 	}
 
-	if (/^xterm-256(?:color)?/.test(process.env.TERM)) {
+	if (/^(screen|xterm)-256(?:color)?/.test(process.env.TERM)) {
 		return 2;
 	}
 

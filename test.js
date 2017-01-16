@@ -150,3 +150,9 @@ it('should prefer level 2/xterm over COLORTERM', function () {
 	var result = requireUncached('./');
 	assert.equal(result.level, 2);
 });
+
+it('should support screen-256color', function () {
+	process.env = {TERM: 'screen-256color'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 2);
+});
