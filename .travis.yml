@@ -6,6 +6,7 @@ node_js:
   - '0.10'
   - '0.8'
 before_install:
+  - toe
   - npm install -g npm@2
 script:
   - npm run travis
