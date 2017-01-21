@@ -23,6 +23,14 @@ it('should return true if `FORCE_COLOR` is in env, but honor 256', function () {
 	assert.equal(result.level, 2);
 });
 
+it('should return true if `FORCE_COLOR` is in env, but honor 256', function () {
+	process.argv = ['--color=256'];
+	process.env.FORCE_COLOR = '1';
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), true);
+	assert.equal(result.level, 2);
+});
+
 it('should return false if `FORCE_COLOR` is in env and is 0', function () {
 	process.env.FORCE_COLOR = '0';
 	var result = requireUncached('./');

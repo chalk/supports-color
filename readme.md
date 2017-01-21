@@ -44,7 +44,7 @@ The returned object specifies a level of support for color through a `.level` pr
 
 It obeys the `--color` and `--no-color` CLI flags.
 
-For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR` with any value to force color. If `FORCE_COLOR` is set to `0`, colors are force disabled. Trumps `--no-color` / color flags, respectively.
+For situations where using `--color` is not possible, add an environment variable `FORCE_COLOR=1` to forcefully enable color. Alternatively, `FORCE_COLOR=0` will be forcefully disabled. The use of `FORCE_COLOR` negates all other color checks performed by this module.
 
 Explicit 256/truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 

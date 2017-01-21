@@ -79,7 +79,7 @@ var supportLevel = (function () {
 
 if ('FORCE_COLOR' in process.env) {
 	var forceColor = parseInt(process.env.FORCE_COLOR, 10);
-	supportLevel = forceColor === 0 ? 0 : supportLevel || 1;
+	supportLevel = forceColor === 0 ? 0 : (supportLevel || 1);
 }
 
 module.exports = process && support(supportLevel);
