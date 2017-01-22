@@ -183,3 +183,21 @@ test('support screen-256color', t => {
 	const result = requireUncached('.');
 	t.is(result.level, 2);
 });
+
+test('level should be 3 when using iTerm 3.0', t => {
+	process.env = {
+		TERM_PROGRAM: 'iTerm.app',
+		TERM_PROGRAM_VERSION: '3.0.10'
+	};
+	const result = requireUncached('.');
+	t.is(result.level, 3);
+});
+
+test('level should be 2 when using iTerm 2.9', t => {
+	process.env = {
+		TERM_PROGRAM: 'iTerm.app',
+		TERM_PROGRAM_VERSION: '2.9.3'
+	};
+	const result = requireUncached('.');
+	t.is(result.level, 2);
+});

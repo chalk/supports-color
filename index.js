@@ -60,6 +60,20 @@ let supportLevel = (() => {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
+	if ('TERM_PROGRAM' in env) {
+		const version = parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+
+		switch (env.TERM_PROGRAM) {
+			case 'iTerm.app':
+				return version >= 3 ? 3 : 2;
+			case 'Hyper':
+				return 3;
+			case 'Apple_Terminal':
+				return 2;
+			// no default
+		}
+	}
+
 	if (/^(screen|xterm)-256(?:color)?/.test(env.TERM)) {
 		return 2;
 	}
