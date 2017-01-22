@@ -17,7 +17,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo && mocha"
+    "test": "xo && ava"
   },
   "files": [
     "index.js",
@@ -49,15 +49,9 @@
     "has-flag": "^2.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
+    "ava": "*",
     "require-uncached": "^1.0.2",
     "xo": "*"
   },
-  "browser": "browser.js",
-  "xo": {
-    "envs": [
-      "node",
-      "mocha"
-    ]
-  }
+  "browser": "browser.js"
 }
