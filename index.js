@@ -1,6 +1,8 @@
 'use strict';
 const hasFlag = require('has-flag');
 
+const env = process.env;
+
 const support = level => {
 	if (level === 0) {
 		return false;
@@ -46,40 +48,39 @@ let supportLevel = (() => {
 		return 1;
 	}
 
-	if ('CI' in process.env) {
-		if ('TRAVIS' in process.env || process.env.CI === 'Travis') {
+	if ('CI' in env) {
+		if ('TRAVIS' in env || env.CI === 'Travis') {
 			return 1;
 		}
 
 		return 0;
 	}
 
-	if ('TEAMCITY_VERSION' in process.env) {
-		return process.env.TEAMCITY_VERSION.match(/^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/) === null ? 0 : 1;
+	if ('TEAMCITY_VERSION' in env) {
+		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
-	if (/^(screen|xterm)-256(?:color)?/.test(process.env.TERM)) {
+	if (/^(screen|xterm)-256(?:color)?/.test(env.TERM)) {
 		return 2;
 	}
 
-	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(process.env.TERM)) {
+	if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(env.TERM)) {
 		return 1;
 	}
 
-	if ('COLORTERM' in process.env) {
+	if ('COLORTERM' in env) {
 		return 1;
 	}
 
-	if (process.env.TERM === 'dumb') {
+	if (env.TERM === 'dumb') {
 		return 0;
 	}
 
 	return 0;
 })();
 
-if ('FORCE_COLOR' in process.env) {
-	const forceColor = parseInt(process.env.FORCE_COLOR, 10);
-	supportLevel = forceColor === 0 ? 0 : (supportLevel || 1);
+if ('FORCE_COLOR' in env) {
+	supportLevel = parseInt(env.FORCE_COLOR, 10) === 0 ? 0 : (supportLevel || 1);
 }
 
 module.exports = process && support(supportLevel);
