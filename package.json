@@ -50,7 +50,8 @@
     "million"
   ],
   "dependencies": {
-    "has-flag": "^1.0.0"
+    "has-flag": "^1.0.0",
+    "terminfo": "^0.1.1"
   },
   "devDependencies": {
     "mocha": "*",

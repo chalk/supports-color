@@ -184,3 +184,33 @@ it('should support screen-256color', function () {
 	var result = requireUncached('./');
 	assert.equal(result.level, 2);
 });
+
+it('should return 0 if an invalid terminal is given', function () {
+	process.env = {TERM: 'FOOBARMCGEE'};
+	var result = requireUncached('./');
+	assert.equal(Boolean(result), false);
+});
+
+it('should return a level of 2 for xterm-256color', function () {
+	process.env = {TERM: 'xterm-256color'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 2);
+});
+
+it('should return a level of 1 for xterm', function () {
+	process.env = {TERM: 'xterm'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 1);
+});
+
+it('should return a level of 1 for konsole-16color', function () {
+	process.env = {TERM: 'konsole-16color'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 1);
+});
+
+it('should return a level of 2 for konsole-256color', function () {
+	process.env = {TERM: 'konsole-256color'};
+	var result = requireUncached('./');
+	assert.equal(result.level, 2);
+});
