@@ -1,20 +1,20 @@
 'use strict';
-var hasFlag = require('has-flag');
+const hasFlag = require('has-flag');
 
-var support = function (level) {
+const support = level => {
 	if (level === 0) {
 		return false;
 	}
 
 	return {
-		level: level,
+		level,
 		hasBasic: true,
 		has256: level >= 2,
 		has16m: level >= 3
 	};
 };
 
-var supportLevel = (function () {
+let supportLevel = (() => {
 	if (hasFlag('no-color') ||
 		hasFlag('no-colors') ||
 		hasFlag('color=false')) {
@@ -78,7 +78,7 @@ var supportLevel = (function () {
 })();
 
 if ('FORCE_COLOR' in process.env) {
-	var forceColor = parseInt(process.env.FORCE_COLOR, 10);
+	const forceColor = parseInt(process.env.FORCE_COLOR, 10);
 	supportLevel = forceColor === 0 ? 0 : (supportLevel || 1);
 }
 

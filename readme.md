@@ -13,7 +13,7 @@ $ npm install --save supports-color
 ## Usage
 
 ```js
-var supportsColor = require('supports-color');
+const supportsColor = require('supports-color');
 
 if (supportsColor) {
 	console.log('Terminal supports color');
@@ -31,7 +31,7 @@ if (supportsColor.has16m) {
 
 ## API
 
-Returns an `object`, or `false` if color is not supported.
+Returns an `Object`, or `false` if color is not supported.
 
 The returned object specifies a level of support for color through a `.level` property and a corresponding flag:
 
@@ -57,4 +57,4 @@ Explicit 256/truecolor mode can be enabled using the `--color=256` and `--color=
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
