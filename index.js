@@ -40,7 +40,8 @@ let supportLevel = (() => {
 		return 1;
 	}
 
-	if (process.stdout && !process.stdout.isTTY) {
+	if ((process.stdout && !process.stdout.isTTY) &&
+		(process.stderr && !process.stderr.isTTY)) {
 		return 0;
 	}
 
