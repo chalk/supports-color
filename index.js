@@ -70,7 +70,7 @@ let supportLevel = (() => {
 				return 3;
 			case 'Apple_Terminal':
 				return 2;
-			// no default
+			// No default
 		}
 	}
 
