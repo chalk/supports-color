@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save supports-color
+$ npm install supports-color
 ```
 
 
@@ -55,6 +55,12 @@ Explicit 256/truecolor mode can be enabled using the `--color=256` and `--color=
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right
 
 
+## Maintainers
+
+- [Sindre Sorhus](https://github.com/sindresorhus)
+- [Josh Junon](https://github.com/qix-)
+
+
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT
