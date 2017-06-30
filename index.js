@@ -47,12 +47,12 @@ let supportLevel = (() => {
 	}
 
 	if (process.platform === 'win32') {
-		// First version of Node.js to include patch to libuv that enables colour
+		// First version of Node.js to include patch to libuv that enables color
 		// output on Windows. Anything earlier and it won't work.
 		if (semver.lt(process.version, '7.5.0')) {
 			return 1;
 		}
-		// First Windows release that supports ANSI output and 256 console colours
+		// First Windows release that supports ANSI output and 256 console colors
 		if (semver.gte(os.release(), '10.0.10586')) {
 			return 2;
 		}
