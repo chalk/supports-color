@@ -1,7 +1,6 @@
 'use strict';
 const os = require('os');
 const hasFlag = require('has-flag');
-const semver = require('semver');
 
 const env = process.env;
 
@@ -54,9 +53,11 @@ let supportLevel = (() => {
 		//
 		// Windows 10 build 10586 is the first Windows release that supports
 		// ANSI output and 256 console colors.
+		const osRelease = os.release().split('.');
 		if (
-			semver.gte(process.version, '8.0.0') &&
-			semver.gte(os.release(), '10.0.10586')
+			Number(process.version.split('.')[0]) >= 8 &&
+			Number(osRelease[0]) >= 10 &&
+			Number(osRelease[2]) >= 10586
 		) {
 			return 2;
 		}

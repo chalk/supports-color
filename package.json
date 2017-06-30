@@ -42,8 +42,7 @@
     "16m"
   ],
   "dependencies": {
-    "has-flag": "^2.0.0",
-    "semver": "^5.3.0"
+    "has-flag": "^2.0.0"
   },
   "devDependencies": {
     "ava": "*",
