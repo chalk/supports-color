@@ -47,13 +47,16 @@ let supportLevel = (() => {
 	}
 
 	if (process.platform === 'win32') {
-		// First version of Node.js to include patch to libuv that enables color
-		// output on Windows. Anything earlier and it won't work.
-		if (semver.lt(process.version, '7.5.0')) {
-			return 1;
-		}
-		// First Windows release that supports ANSI output and 256 console colors
-		if (semver.gte(os.release(), '10.0.10586')) {
+		// Node.js 7.5.0 is the first version of Node.js to include a patch to
+		// libuv that enables color output on Windows. Anything earlier and it
+		// won't work.
+		//
+		// Windows 10 build 10586 is the first Windows release that supports
+		// ANSI output and 256 console colors.
+		if (
+			semver.gte(process.version, '7.5.0') &&
+			semver.gte(os.release(), '10.0.10586')
+		) {
 			return 2;
 		}
 		return 1;
