@@ -47,12 +47,10 @@ let supportLevel = (() => {
 
 	if (process.platform === 'win32') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
-		// libuv that enables color output on Windows. Anything earlier and it
-		// won't work. However, here we target 8.0.0 at minimum as it is an LTE
-		// release, and 7.x is not.
-		//
-		// Windows 10 build 10586 is the first Windows release that supports
-		// ANSI output and 256 console colors.
+		// libuv that enables 256 color output on Windows. Anything earlier and it
+		// won't work. However, here we target Node.js 8 at minimum as it is an LTS
+		// release, and Node.js 7 is not. Windows 10 build 10586 is the first Windows
+		// release that supports 256 colors.
 		const osRelease = os.release().split('.');
 		if (
 			Number(process.version.split('.')[0]) >= 8 &&
@@ -61,6 +59,7 @@ let supportLevel = (() => {
 		) {
 			return 2;
 		}
+
 		return 1;
 	}
 
