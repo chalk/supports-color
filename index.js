@@ -1,5 +1,7 @@
 'use strict';
+const os = require('os');
 const hasFlag = require('has-flag');
+const semver = require('semver');
 
 const env = process.env;
 
@@ -45,6 +47,15 @@ let supportLevel = (() => {
 	}
 
 	if (process.platform === 'win32') {
+		// First version of Node.js to include patch to libuv that enables colour
+		// output on Windows. Anything earlier and it won't work.
+		if (semver.lt(process.version, '7.5.0')) {
+			return 1;
+		}
+		// First Windows release that supports ANSI output and 256 console colours
+		if (semver.gte(os.release(), '10.0.10586')) {
+			return 2;
+		}
 		return 1;
 	}
 
