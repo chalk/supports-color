@@ -212,48 +212,48 @@ test('level should be 2 when using iTerm 2.9', t => {
 	t.is(result.level, 2);
 });
 
-test('return level 1 if on Windows earlier than 10 build 10586 and Node version is < 7.5.0', t => {
+test('return level 1 if on Windows earlier than 10 build 10586 and Node version is < 8.0.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
 	Object.defineProperty(process, 'version', {
-		value: '7.4.0'
+		value: '7.5.0'
 	});
 	os.release = () => '10.0.10240';
 	const result = importFresh('.');
 	t.is(result.level, 1);
 });
 
-test('return level 1 if on Windows 10 build 10586 or later and Node version is < 7.5.0', t => {
+test('return level 1 if on Windows 10 build 10586 or later and Node version is < 8.0.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
 	Object.defineProperty(process, 'version', {
-		value: '7.4.0'
+		value: '7.5.0'
 	});
 	os.release = () => '10.0.10586';
 	const result = importFresh('.');
 	t.is(result.level, 1);
 });
 
-test('return level 1 if on Windows earlier than 10 build 10586 and Node version is >= 7.5.0', t => {
+test('return level 1 if on Windows earlier than 10 build 10586 and Node version is >= 8.0.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
 	Object.defineProperty(process, 'version', {
-		value: '7.5.0'
+		value: '8.0.0'
 	});
 	os.release = () => '10.0.10240';
 	const result = importFresh('.');
 	t.is(result.level, 1);
 });
 
-test('return level 2 if on Windows 10 build 10586 or later and Node version is >= 7.5.0', t => {
+test('return level 2 if on Windows 10 build 10586 or later and Node version is >= 8.0.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
 	Object.defineProperty(process, 'version', {
-		value: '7.5.0'
+		value: '8.0.0'
 	});
 	os.release = () => '10.0.10586';
 	const result = importFresh('.');
