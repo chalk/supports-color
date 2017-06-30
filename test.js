@@ -1,7 +1,11 @@
+import os from 'os';
 import {serial as test} from 'ava';
 import importFresh from 'import-fresh';
 
 test.beforeEach(() => {
+	Object.defineProperty(process, 'platform', {
+		value: 'linux'
+	});
 	process.stdout.isTTY = true;
 	process.argv = [];
 	process.env = {};
@@ -185,6 +189,9 @@ test('support screen-256color', t => {
 });
 
 test('level should be 3 when using iTerm 3.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'darwin'
+	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
 		TERM_PROGRAM_VERSION: '3.0.10'
@@ -194,10 +201,61 @@ test('level should be 3 when using iTerm 3.0', t => {
 });
 
 test('level should be 2 when using iTerm 2.9', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'darwin'
+	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
 		TERM_PROGRAM_VERSION: '2.9.3'
 	};
+	const result = importFresh('.');
+	t.is(result.level, 2);
+});
+
+test('return level 1 if on Windows earlier than 10 build 10586 and Node version is < 8.0.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process, 'version', {
+		value: '7.5.0'
+	});
+	os.release = () => '10.0.10240';
+	const result = importFresh('.');
+	t.is(result.level, 1);
+});
+
+test('return level 1 if on Windows 10 build 10586 or later and Node version is < 8.0.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process, 'version', {
+		value: '7.5.0'
+	});
+	os.release = () => '10.0.10586';
+	const result = importFresh('.');
+	t.is(result.level, 1);
+});
+
+test('return level 1 if on Windows earlier than 10 build 10586 and Node version is >= 8.0.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process, 'version', {
+		value: '8.0.0'
+	});
+	os.release = () => '10.0.10240';
+	const result = importFresh('.');
+	t.is(result.level, 1);
+});
+
+test('return level 2 if on Windows 10 build 10586 or later and Node version is >= 8.0.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process, 'version', {
+		value: '8.0.0'
+	});
+	os.release = () => '10.0.10586';
 	const result = importFresh('.');
 	t.is(result.level, 2);
 });
