@@ -2,6 +2,9 @@ import {serial as test} from 'ava';
 import importFresh from 'import-fresh';
 
 test.beforeEach(() => {
+	Object.defineProperty(process, 'platform', {
+		value: 'linux'
+	});
 	process.stdout.isTTY = true;
 	process.argv = [];
 	process.env = {};
@@ -185,6 +188,9 @@ test('support screen-256color', t => {
 });
 
 test('level should be 3 when using iTerm 3.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'darwin'
+	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
 		TERM_PROGRAM_VERSION: '3.0.10'
@@ -194,6 +200,9 @@ test('level should be 3 when using iTerm 3.0', t => {
 });
 
 test('level should be 2 when using iTerm 2.9', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'darwin'
+	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
 		TERM_PROGRAM_VERSION: '2.9.3'
