@@ -164,6 +164,12 @@ test('return true if `TRAVIS` is in env', t => {
 	t.truthy(result);
 });
 
+test('return true if `CIRCLECI` is in env', t => {
+	process.env = {CI: true, CIRCLECI: true};
+	const result = importFresh('.');
+	t.truthy(result);
+});
+
 test('return false if `TEAMCITY_VERSION` is in env and is < 9.1', t => {
 	process.env.TEAMCITY_VERSION = '9.0.5 (build 32523)';
 	const result = importFresh('.');
