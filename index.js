@@ -89,7 +89,7 @@ let supportLevel = (() => {
 		}
 	}
 
-	if (/^(screen|xterm)-256(?:color)?/.test(env.TERM)) {
+	if (/^(screen|xterm|putty)-256(?:color)?/.test(env.TERM)) {
 		return 2;
 	}
 
