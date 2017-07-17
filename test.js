@@ -218,11 +218,6 @@ test('level should be 2 when using iTerm 2.9', t => {
 	t.is(result.level, 2);
 });
 
-test('Get the correct version number of node', t => {
-	t.regex(process.versions.node, /^\d+/);
-	t.notRegex(process.version, /^\d+/);
-});
-
 test('return level 1 if on Windows earlier than 10 build 10586 and Node version is < 8.0.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
