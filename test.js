@@ -222,7 +222,7 @@ test('return level 1 if on Windows earlier than 10 build 10586 and Node version 
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
-	Object.defineProperty(process, 'version', {
+	Object.defineProperty(process.versions, 'node', {
 		value: '7.5.0'
 	});
 	os.release = () => '10.0.10240';
@@ -234,7 +234,7 @@ test('return level 1 if on Windows 10 build 10586 or later and Node version is <
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
-	Object.defineProperty(process, 'version', {
+	Object.defineProperty(process.versions, 'node', {
 		value: '7.5.0'
 	});
 	os.release = () => '10.0.10586';
@@ -246,7 +246,7 @@ test('return level 1 if on Windows earlier than 10 build 10586 and Node version 
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
-	Object.defineProperty(process, 'version', {
+	Object.defineProperty(process.versions, 'node', {
 		value: '8.0.0'
 	});
 	os.release = () => '10.0.10240';
@@ -258,7 +258,7 @@ test('return level 2 if on Windows 10 build 10586 or later and Node version is >
 	Object.defineProperty(process, 'platform', {
 		value: 'win32'
 	});
-	Object.defineProperty(process, 'version', {
+	Object.defineProperty(process.versions, 'node', {
 		value: '8.0.0'
 	});
 	os.release = () => '10.0.10586';
