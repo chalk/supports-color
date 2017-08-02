@@ -41,6 +41,14 @@ let supportLevel = (() => {
 		return 1;
 	}
 
+	if ('CI' in env) {
+		if ('TRAVIS' in env || env.CI === 'Travis' || 'CIRCLECI' in env) {
+			return 1;
+		}
+
+		return 0;
+	}
+
 	if (process.stdout && !process.stdout.isTTY) {
 		return 0;
 	}
@@ -61,14 +69,6 @@ let supportLevel = (() => {
 		}
 
 		return 1;
-	}
-
-	if ('CI' in env) {
-		if ('TRAVIS' in env || env.CI === 'Travis' || 'CIRCLECI' in env) {
-			return 1;
-		}
-
-		return 0;
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
