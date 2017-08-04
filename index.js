@@ -42,7 +42,7 @@ let supportLevel = (() => {
 	}
 
 	if ('CI' in env) {
-		if ('TRAVIS' in env || env.CI === 'Travis' || 'CIRCLECI' in env) {
+		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env)) {
 			return 1;
 		}
 
