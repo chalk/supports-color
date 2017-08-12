@@ -4,7 +4,7 @@ const hasFlag = require('has-flag');
 
 const env = process.env;
 
-const support = level => {
+function translateLevel(level) {
 	if (level === 0) {
 		return false;
 	}
@@ -15,9 +15,9 @@ const support = level => {
 		has256: level >= 2,
 		has16m: level >= 3
 	};
-};
+}
 
-let supportLevel = (() => {
+function supportsColor(stream) {
 	if (hasFlag('no-color') ||
 		hasFlag('no-colors') ||
 		hasFlag('color=false')) {
@@ -41,7 +41,7 @@ let supportLevel = (() => {
 		return 1;
 	}
 
-	if (process.stdout && !process.stdout.isTTY) {
+	if (stream && !stream.isTTY) {
 		return 0;
 	}
 
@@ -106,10 +106,20 @@ let supportLevel = (() => {
 	}
 
 	return 0;
-})();
-
-if ('FORCE_COLOR' in env) {
-	supportLevel = parseInt(env.FORCE_COLOR, 10) === 0 ? 0 : (supportLevel || 1);
 }
 
-module.exports = process && support(supportLevel);
+function getSupportLevel(stream) {
+	let level = supportsColor(stream);
+
+	if ('FORCE_COLOR' in env) {
+		level = (env.FORCE_COLOR.length > 0 && parseInt(env.FORCE_COLOR, 10) === 0) ? 0 : (level || 1);
+	}
+
+	return translateLevel(level);
+}
+
+module.exports = {
+	supportsColor: getSupportLevel,
+	stdout: getSupportLevel(process.stdout),
+	stderr: getSupportLevel(process.stderr)
+};
