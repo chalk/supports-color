@@ -41,14 +41,6 @@ let supportLevel = (() => {
 		return 1;
 	}
 
-	if ('CI' in env) {
-		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
-			return 1;
-		}
-
-		return 0;
-	}
-
 	if (process.stdout && !process.stdout.isTTY) {
 		return 0;
 	}
@@ -69,6 +61,14 @@ let supportLevel = (() => {
 		}
 
 		return 1;
+	}
+
+	if ('CI' in env) {
+		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
+			return 1;
+		}
+
+		return 0;
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
