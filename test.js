@@ -182,6 +182,12 @@ test('return true if `GITLAB_CI` is in env', t => {
 	t.truthy(result);
 });
 
+test('return true if Codeship is in env', t => {
+	process.env = {CI: true, CI_NAME: 'codeship'};
+	const result = importFresh('.');
+	t.truthy(result);
+});
+
 test('return false if `TEAMCITY_VERSION` is in env and is < 9.1', t => {
 	process.env.TEAMCITY_VERSION = '9.0.5 (build 32523)';
 	const result = importFresh('.');
