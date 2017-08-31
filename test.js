@@ -206,6 +206,12 @@ test('support screen-256color', t => {
 	t.is(result.level, 2);
 });
 
+test('support putty-256color', t => {
+	process.env = {TERM: 'putty-256color'};
+	const result = importFresh('.');
+	t.is(result.level, 2);
+});
+
 test('level should be 3 when using iTerm 3.0', t => {
 	Object.defineProperty(process, 'platform', {
 		value: 'darwin'
