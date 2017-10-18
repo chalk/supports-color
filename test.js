@@ -200,6 +200,12 @@ test('return level 1 if `TEAMCITY_VERSION` is in env and is >= 9.1', t => {
 	t.is(result.level, 1);
 });
 
+test('support rxvt', t => {
+	process.env = {TERM: 'rxvt'};
+	const result = importFresh('.');
+	t.is(result.level, 1);
+});
+
 test('prefer level 2/xterm over COLORTERM', t => {
 	process.env = {COLORTERM: '1', TERM: 'xterm-256color'};
 	const result = importFresh('.');
