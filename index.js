@@ -58,7 +58,7 @@ function supportsColor(stream) {
 			Number(osRelease[0]) >= 10 &&
 			Number(osRelease[2]) >= 10586
 		) {
-			return Number(osRelease[2]) >= 14931) ? 3 : 2;
+			return Number(osRelease[2]) >= 14931 ? 3 : 2;
 		}
 
 		return 1;
