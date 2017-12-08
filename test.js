@@ -306,3 +306,4 @@ test('return level 3 if on Windows 10 build 14931 or later and Node version is >
 	os.release = () => '10.0.14931';
 	const result = importFresh('.');
 	t.is(result.stdout.level, 3);
+});
