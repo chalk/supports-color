@@ -295,3 +295,15 @@ test('return level 2 if on Windows 10 build 10586 or later and Node version is >
 	const result = importFresh('.');
 	t.is(result.stdout.level, 2);
 });
+
+test('return level 3 if on Windows 10 build 14931 or later and Node version is >= 8.0.0', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process.versions, 'node', {
+		value: '8.0.0'
+	});
+	os.release = () => '10.0.14931';
+	const result = importFresh('.');
+	t.is(result.stdout.level, 3);
+});
