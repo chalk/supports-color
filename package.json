@@ -42,7 +42,7 @@
     "16m"
   ],
   "dependencies": {
-    "has-flag": "^2.0.0"
+    "has-flag": "^3.0.0"
   },
   "devDependencies": {
     "ava": "*",
