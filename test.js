@@ -12,6 +12,7 @@ test.beforeEach(() => {
 });
 
 test('return true if `FORCE_COLOR` is in env', t => {
+	process.stdout.isTTY = false;
 	process.env.FORCE_COLOR = true;
 	const result = importFresh('.');
 	t.truthy(result.stdout);
@@ -306,4 +307,13 @@ test('return level 3 if on Windows 10 build 14931 or later and Node version is >
 	os.release = () => '10.0.14931';
 	const result = importFresh('.');
 	t.is(result.stdout.level, 3);
+});
+
+test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
+	process.stdout.isTTY = false;
+	process.env.FORCE_COLOR = true;
+	process.env.TERM = 'xterm-256color';
+	const result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
 });

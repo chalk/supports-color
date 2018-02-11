@@ -4,6 +4,21 @@ const hasFlag = require('has-flag');
 
 const env = process.env;
 
+let forceColor;
+if (hasFlag('no-color') ||
+	hasFlag('no-colors') ||
+	hasFlag('color=false')) {
+	forceColor = false;
+} else if (hasFlag('color') ||
+	hasFlag('colors') ||
+	hasFlag('color=true') ||
+	hasFlag('color=always')) {
+	forceColor = true;
+}
+if ('FORCE_COLOR' in env) {
+	forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+}
+
 function translateLevel(level) {
 	if (level === 0) {
 		return false;
@@ -18,9 +33,7 @@ function translateLevel(level) {
 }
 
 function supportsColor(stream) {
-	if (hasFlag('no-color') ||
-		hasFlag('no-colors') ||
-		hasFlag('color=false')) {
+	if (forceColor === false) {
 		return 0;
 	}
 
@@ -34,16 +47,11 @@ function supportsColor(stream) {
 		return 2;
 	}
 
-	if (hasFlag('color') ||
-		hasFlag('colors') ||
-		hasFlag('color=true') ||
-		hasFlag('color=always')) {
-		return 1;
-	}
-
-	if (stream && !stream.isTTY) {
+	if (stream && !stream.isTTY && forceColor !== true) {
 		return 0;
 	}
+
+	const min = forceColor ? 1 : 0;
 
 	if (process.platform === 'win32') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
@@ -69,7 +77,7 @@ function supportsColor(stream) {
 			return 1;
 		}
 
-		return 0;
+		return min;
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
@@ -103,19 +111,14 @@ function supportsColor(stream) {
 	}
 
 	if (env.TERM === 'dumb') {
-		return 0;
+		return min;
 	}
 
-	return 0;
+	return min;
 }
 
 function getSupportLevel(stream) {
-	let level = supportsColor(stream);
-
-	if ('FORCE_COLOR' in env) {
-		level = (env.FORCE_COLOR.length > 0 && parseInt(env.FORCE_COLOR, 10) === 0) ? 0 : (level || 1);
-	}
-
+	const level = supportsColor(stream);
 	return translateLevel(level);
 }
 
