@@ -47,6 +47,10 @@ function supportsColor(stream) {
 		return 2;
 	}
 
+	if (env.VSCODE_PID) {
+		return 1;
+	}
+
 	if (stream && !stream.isTTY && forceColor !== true) {
 		return 0;
 	}
