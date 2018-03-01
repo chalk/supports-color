@@ -90,8 +90,6 @@ function supportsColor(stream) {
 		switch (env.TERM_PROGRAM) {
 			case 'iTerm.app':
 				return version >= 3 ? 3 : 2;
-			case 'Hyper':
-				return 3;
 			case 'Apple_Terminal':
 				return 2;
 			// No default
