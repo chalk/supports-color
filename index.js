@@ -83,7 +83,7 @@ function supportsColor(stream) {
 	if ('TEAMCITY_VERSION' in env) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
-	
+
 	if (env.COLORTERM === 'truecolor') {
 		return 3;
 	}
