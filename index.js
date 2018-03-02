@@ -48,6 +48,10 @@ function supportsColor(stream) {
 	}
 
 	if (stream && !stream.isTTY && forceColor !== true) {
+		// VS code debugger doesn't have isTTY set
+		if (env.VSCODE_PID) {
+			return 1;
+		}
 		return 0;
 	}
 
