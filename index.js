@@ -16,7 +16,7 @@ if (hasFlag('no-color') ||
 	forceColor = true;
 }
 if ('FORCE_COLOR' in env) {
-	forceColor = env.FORCE_COLOR === 'true' || env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+	forceColor = Boolean(env.FORCE_COLOR.length) && env.FORCE_COLOR !== '0';
 }
 
 function translateLevel(level) {
