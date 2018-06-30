@@ -42,6 +42,7 @@
     "16m"
   ],
   "dependencies": {
+    "env-bool": "1.0.3",
     "has-flag": "^3.0.0"
   },
   "devDependencies": {
