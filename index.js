@@ -17,8 +17,10 @@ if (hasFlag('no-color') ||
 }
 let forceLevel;
 if ('FORCE_COLOR' in env) {
-	if (env.FORCE_COLOR === true) {
+	if (env.FORCE_COLOR === true || env.FORCE_COLOR === 'true') {
 		forceColor = true;
+	} else if (env.FORCE_COLOR === false || env.FORCE_COLOR === 'false') {
+		forceColor = false;
 	} else {
 		forceLevel = env.FORCE_COLOR.length === 0 ?
 			1 :

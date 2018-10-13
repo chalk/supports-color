@@ -330,3 +330,22 @@ test('supports setting a color value using FORCE_COLOR', t => {
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 3);
 });
+
+test('FORCE_COLOR works when set via command line (all values are strings)', t => {
+	let result;
+	process.env.FORCE_COLOR = 'true';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+
+	process.stdout.isTTY = false;
+	process.env.FORCE_COLOR = 'true';
+	process.env.TERM = 'xterm-256color';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+
+	process.env.FORCE_COLOR = 'false';
+	result = importFresh('.');
+	t.false(result.stdout);
+});
