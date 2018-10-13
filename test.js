@@ -317,3 +317,16 @@ test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 2);
 });
+
+test('supports setting a color value using FORCE_COLOR', t => {
+	let result;
+	process.env.FORCE_COLOR = '2';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+
+	process.env.FORCE_COLOR = '3';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 3);
+});

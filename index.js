@@ -15,8 +15,16 @@ if (hasFlag('no-color') ||
 	hasFlag('color=always')) {
 	forceColor = true;
 }
+let forceLevel;
 if ('FORCE_COLOR' in env) {
-	forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+	if (env.FORCE_COLOR === true) {
+		forceColor = true;
+	} else {
+		forceLevel = env.FORCE_COLOR.length === 0 ?
+			1 :
+      parseInt(env.FORCE_COLOR, 10);
+		forceColor = forceLevel !== 0;
+	}
 }
 
 function translateLevel(level) {
@@ -45,6 +53,10 @@ function supportsColor(stream) {
 
 	if (hasFlag('color=256')) {
 		return 2;
+	}
+
+	if (forceLevel !== undefined) {
+		return forceLevel;
 	}
 
 	if (stream && !stream.isTTY && forceColor !== true) {
