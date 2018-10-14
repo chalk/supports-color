@@ -320,6 +320,11 @@ test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
 
 test('supports setting a color value using FORCE_COLOR', t => {
 	let result;
+	process.env.FORCE_COLOR = '1';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+
 	process.env.FORCE_COLOR = '2';
 	result = importFresh('.');
 	t.truthy(result.stdout);
@@ -327,6 +332,17 @@ test('supports setting a color value using FORCE_COLOR', t => {
 
 	process.env.FORCE_COLOR = '3';
 	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 3);
+
+	process.env.FORCE_COLOR = '0';
+	result = importFresh('.');
+	t.false(result.stdout);
+});
+
+test('FORCE_COLOR maxes out at a value of 3', t => {
+	process.env.FORCE_COLOR = '4';
+	const result = importFresh('.');
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 3);
 });

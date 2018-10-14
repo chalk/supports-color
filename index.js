@@ -23,7 +23,7 @@ if ('FORCE_COLOR' in env) {
 	} else {
 		forceColor = env.FORCE_COLOR.length === 0 ?
 			1 :
-      parseInt(env.FORCE_COLOR, 10);
+      Math.min(parseInt(env.FORCE_COLOR, 10), 3);
 	}
 }
 
