@@ -8,24 +8,22 @@ let forceColor;
 if (hasFlag('no-color') ||
 	hasFlag('no-colors') ||
 	hasFlag('color=false')) {
-	forceColor = false;
+	forceColor = 0;
 } else if (hasFlag('color') ||
 	hasFlag('colors') ||
 	hasFlag('color=true') ||
 	hasFlag('color=always')) {
-	forceColor = true;
+	forceColor = 1;
 }
-let forceLevel;
 if ('FORCE_COLOR' in env) {
 	if (env.FORCE_COLOR === true || env.FORCE_COLOR === 'true') {
-		forceColor = true;
+		forceColor = 1;
 	} else if (env.FORCE_COLOR === false || env.FORCE_COLOR === 'false') {
-		forceColor = false;
+		forceColor = 0;
 	} else {
-		forceLevel = env.FORCE_COLOR.length === 0 ?
+		forceColor = env.FORCE_COLOR.length === 0 ?
 			1 :
       parseInt(env.FORCE_COLOR, 10);
-		forceColor = forceLevel !== 0;
 	}
 }
 
@@ -43,7 +41,7 @@ function translateLevel(level) {
 }
 
 function supportsColor(stream) {
-	if (forceColor === false) {
+	if (forceColor === 0) {
 		return 0;
 	}
 
@@ -57,15 +55,11 @@ function supportsColor(stream) {
 		return 2;
 	}
 
-	if (forceLevel !== undefined) {
-		return forceLevel;
-	}
-
-	if (stream && !stream.isTTY && forceColor !== true) {
+	if (stream && !stream.isTTY && forceColor === undefined) {
 		return 0;
 	}
 
-	const min = forceColor ? 1 : 0;
+	const min = forceColor || 0;
 
 	if (process.platform === 'win32') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
