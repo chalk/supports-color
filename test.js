@@ -317,3 +317,38 @@ test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 2);
 });
+
+test('return false when `TERM` is set to dumb', t => {
+	process.env.TERM = 'dumb';
+	const result = importFresh('.');
+	t.false(result.stdout);
+});
+
+test('return false when `TERM` is set to dumb when `TERM_PROGRAM` is set', t => {
+	process.env.TERM = 'dumb';
+	process.env.TERM_PROGRAM = 'Apple_Terminal';
+	const result = importFresh('.');
+	t.false(result.stdout);
+});
+
+test('return false when `TERM` is set to dumb when run on Windows', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32'
+	});
+	Object.defineProperty(process.versions, 'node', {
+		value: '10.13.0'
+	});
+	os.release = () => '10.0.14931';
+	process.env.TERM = 'dumb';
+	const result = importFresh('.');
+	t.false(result.stdout);
+});
+
+test('return level 1 when `TERM` is set to dumb when `FORCE_COLOR` is set', t => {
+	process.env.FORCE_COLOR = '1';
+	process.env.TERM = 'dumb';
+	const result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+});
+
