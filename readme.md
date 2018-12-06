@@ -1,4 +1,4 @@
-# supports-color [![Build Status](https://travis-ci.org/chalk/supports-color.svg?branch=master)](https://travis-ci.org/chalk/supports-color)
+# supports-color [![Build Status](https://travis-ci.org/chalk/supports-color.svg?branch=master)](https://travis-ci.org/chalk/supports-color) [![supports-color Dev Token](https://badge.devtoken.rocks/supports-color)](https://devtoken.rocks/package/supports-color)
 
 > Detect whether a terminal supports color
 
