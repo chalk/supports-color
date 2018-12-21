@@ -34,7 +34,7 @@ test('return true if `FORCE_COLOR` is in env, but honor 256', t => {
 	t.is(result.stdout.level, 2);
 });
 
-test('return true if `FORCE_COLOR` is in env, but honor 256', t => {
+test('return true if `FORCE_COLOR` is in env, but honor 256 #2', t => {
 	process.argv = ['--color=256'];
 	process.env.FORCE_COLOR = '1';
 	const result = importFresh('.');

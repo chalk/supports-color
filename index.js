@@ -2,7 +2,7 @@
 const os = require('os');
 const hasFlag = require('has-flag');
 
-const env = process.env;
+const {env} = process;
 
 let forceColor;
 if (hasFlag('no-color') ||
