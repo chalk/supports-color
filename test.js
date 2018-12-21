@@ -2,10 +2,17 @@ import os from 'os';
 import {serial as test} from 'ava';
 import importFresh from 'import-fresh';
 
+const currentNodeVersion = process.versions.node;
+
 test.beforeEach(() => {
 	Object.defineProperty(process, 'platform', {
 		value: 'linux'
 	});
+
+	Object.defineProperty(process.versions, 'node', {
+		value: currentNodeVersion
+	});
+
 	process.stdout.isTTY = true;
 	process.argv = [];
 	process.env = {};
