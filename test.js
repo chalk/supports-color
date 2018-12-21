@@ -351,4 +351,3 @@ test('return level 1 when `TERM` is set to dumb when `FORCE_COLOR` is set', t =>
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 1);
 });
-
