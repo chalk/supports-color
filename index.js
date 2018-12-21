@@ -21,9 +21,7 @@ if ('FORCE_COLOR' in env) {
 	} else if (env.FORCE_COLOR === false || env.FORCE_COLOR === 'false') {
 		forceColor = 0;
 	} else {
-		forceColor = env.FORCE_COLOR.length === 0 ?
-			1 :
-      Math.min(parseInt(env.FORCE_COLOR, 10), 3);
+		forceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
 	}
 }
 
