@@ -325,6 +325,54 @@ test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
 	t.is(result.stdout.level, 2);
 });
 
+test('supports setting a color level using FORCE_COLOR', t => {
+	let result;
+	process.env.FORCE_COLOR = '1';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+
+	process.env.FORCE_COLOR = '2';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+
+	process.env.FORCE_COLOR = '3';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 3);
+
+	process.env.FORCE_COLOR = '0';
+	result = importFresh('.');
+	t.false(result.stdout);
+});
+
+test('FORCE_COLOR maxes out at a value of 3', t => {
+	process.env.FORCE_COLOR = '4';
+	const result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 3);
+});
+
+test('FORCE_COLOR works when set via command line (all values are strings)', t => {
+	let result;
+	process.env.FORCE_COLOR = 'true';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+
+	process.stdout.isTTY = false;
+	process.env.FORCE_COLOR = 'true';
+	process.env.TERM = 'xterm-256color';
+	result = importFresh('.');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+
+	process.env.FORCE_COLOR = 'false';
+	result = importFresh('.');
+	t.false(result.stdout);
+});
+
 test('return false when `TERM` is set to dumb', t => {
 	process.env.TERM = 'dumb';
 	const result = importFresh('.');
