@@ -2,7 +2,7 @@
 const os = require('os');
 const hasFlag = require('has-flag');
 
-const env = process.env;
+const {env} = process;
 
 let forceColor;
 if (hasFlag('no-color') ||
@@ -61,6 +61,10 @@ function supportsColor(stream) {
 
 	const min = forceColor || 0;
 
+	if (env.TERM === 'dumb') {
+		return min;
+	}
+
 	if (process.platform === 'win32') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
 		// libuv that enables 256 color output on Windows. Anything earlier and it
@@ -118,10 +122,6 @@ function supportsColor(stream) {
 
 	if ('COLORTERM' in env) {
 		return 1;
-	}
-
-	if (env.TERM === 'dumb') {
-		return min;
 	}
 
 	return min;
