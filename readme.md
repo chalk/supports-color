@@ -63,6 +63,11 @@ For situations where using `--color` is not possible, use the environment variab
 Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
 
 
+## Security
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+
 ## Related
 
 - [supports-color-cli](https://github.com/chalk/supports-color-cli) - CLI for this module
