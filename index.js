@@ -7,7 +7,8 @@ const {env} = process;
 let forceColor;
 if (hasFlag('no-color') ||
 	hasFlag('no-colors') ||
-	hasFlag('color=false')) {
+	hasFlag('color=false') ||
+	hasFlag('color=never')) {
 	forceColor = 0;
 } else if (hasFlag('color') ||
 	hasFlag('colors') ||
