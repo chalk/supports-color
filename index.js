@@ -17,9 +17,9 @@ if (hasFlag('no-color') ||
 	forceColor = 1;
 }
 if ('FORCE_COLOR' in env) {
-	if (env.FORCE_COLOR === true || env.FORCE_COLOR === 'true') {
+	if (env.FORCE_COLOR === 'true') {
 		forceColor = 1;
-	} else if (env.FORCE_COLOR === false || env.FORCE_COLOR === 'false') {
+	} else if (env.FORCE_COLOR === 'false') {
 		forceColor = 0;
 	} else {
 		forceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
