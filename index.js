@@ -16,6 +16,7 @@ if (hasFlag('no-color') ||
 	hasFlag('color=always')) {
 	forceColor = 1;
 }
+
 if ('FORCE_COLOR' in env) {
 	if (env.FORCE_COLOR === 'true') {
 		forceColor = 1;
@@ -65,15 +66,10 @@ function supportsColor(stream) {
 	}
 
 	if (process.platform === 'win32') {
-		// Node.js 7.5.0 is the first version of Node.js to include a patch to
-		// libuv that enables 256 color output on Windows. Anything earlier and it
-		// won't work. However, here we target Node.js 8 at minimum as it is an LTS
-		// release, and Node.js 7 is not. Windows 10 build 10586 is the first Windows
-		// release that supports 256 colors. Windows 10 build 14931 is the first release
-		// that supports 16m/TrueColor.
+		// Windows 10 build 10586 is the first Windows release that supports 256 colors.
+		// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
 		const osRelease = os.release().split('.');
 		if (
-			Number(process.versions.node.split('.')[0]) >= 8 &&
 			Number(osRelease[0]) >= 10 &&
 			Number(osRelease[2]) >= 10586
 		) {

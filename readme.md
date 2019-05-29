@@ -78,8 +78,3 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 
 - [Sindre Sorhus](https://github.com/sindresorhus)
 - [Josh Junon](https://github.com/qix-)
-
-
-## License
-
-MIT
