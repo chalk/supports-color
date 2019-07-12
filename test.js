@@ -389,3 +389,19 @@ test('return level 1 when `TERM` is set to dumb when `FORCE_COLOR` is set', t =>
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 1);
 });
+
+test('ignore flags when sniffFlags=false', t => {
+	process.argv = ['--color=256'];
+	process.env.TERM = 'dumb';
+	const result = importFresh('.');
+
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+
+	const sniffResult = result.supportsColor(process.stdout, {sniffFlags: true});
+	t.truthy(sniffResult);
+	t.is(sniffResult.level, 2);
+
+	const nosniffResult = result.supportsColor(process.stdout, {sniffFlags: false});
+	t.falsy(nosniffResult);
+});

@@ -40,6 +40,15 @@ The `stdout`/`stderr` objects specifies a level of support for color through a `
 - `.level = 3` and `.has16m = true`: Truecolor support (16 million colors)
 
 
+### `require('supports-color').supportsColor(stream, options?)`
+
+Additionally, `supports-color` exposes the `.supportsColor()` function that takes an arbitrary write stream (e.g. `process.stdout`) and an optional options object to (re-)evaluate color support for an arbitrary stream.
+
+For example, `require('supports-color').stdout` is the equivalent of `require('supports-color').supportsColor(process.stdout)`.
+
+The options object supports a single boolean property `sniffFlags`. By default it is `true`, which instructs `supportsColor()` to sniff `process.argv` for the multitude of `--color` flags (see _Info_ below). If `false`, then `process.argv` is not considered when determining color support.
+
+
 ## Info
 
 It obeys the `--color` and `--no-color` CLI flags.

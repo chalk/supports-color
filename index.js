@@ -5,27 +5,30 @@ const hasFlag = require('has-flag');
 
 const {env} = process;
 
-let forceColor;
+let flagForceColor;
 if (hasFlag('no-color') ||
 	hasFlag('no-colors') ||
 	hasFlag('color=false') ||
 	hasFlag('color=never')) {
-	forceColor = 0;
+	flagForceColor = 0;
 } else if (hasFlag('color') ||
 	hasFlag('colors') ||
 	hasFlag('color=true') ||
 	hasFlag('color=always')) {
-	forceColor = 1;
+	flagForceColor = 1;
 }
 
+let noFlagForceColor;
 if ('FORCE_COLOR' in env) {
 	if (env.FORCE_COLOR === 'true') {
-		forceColor = 1;
+		noFlagForceColor = 1;
 	} else if (env.FORCE_COLOR === 'false') {
-		forceColor = 0;
+		noFlagForceColor = 0;
 	} else {
-		forceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
+		noFlagForceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
 	}
+
+	flagForceColor = noFlagForceColor;
 }
 
 function translateLevel(level) {
@@ -41,19 +44,23 @@ function translateLevel(level) {
 	};
 }
 
-function supportsColor(haveStream, streamIsTTY) {
+function supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
+	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
+
 	if (forceColor === 0) {
 		return 0;
 	}
 
-	if (hasFlag('color=16m') ||
-		hasFlag('color=full') ||
-		hasFlag('color=truecolor')) {
-		return 3;
-	}
+	if (sniffFlags) {
+		if (hasFlag('color=16m') ||
+			hasFlag('color=full') ||
+			hasFlag('color=truecolor')) {
+			return 3;
+		}
 
-	if (hasFlag('color=256')) {
-		return 2;
+		if (hasFlag('color=256')) {
+			return 2;
+		}
 	}
 
 	if (haveStream && !streamIsTTY && forceColor === undefined) {
@@ -123,13 +130,17 @@ function supportsColor(haveStream, streamIsTTY) {
 	return min;
 }
 
-function getSupportLevel(stream) {
-	const level = supportsColor(stream, stream && stream.isTTY);
+function getSupportLevel(stream, options = {}) {
+	const level = supportsColor(stream, {
+		streamIsTTY: stream && stream.isTTY,
+		...options
+	});
+
 	return translateLevel(level);
 }
 
 module.exports = {
 	supportsColor: getSupportLevel,
-	stdout: translateLevel(supportsColor(true, tty.isatty(1))),
-	stderr: translateLevel(supportsColor(true, tty.isatty(2)))
+	stdout: getSupportLevel({isTTY: tty.isatty(1)}),
+	stderr: getSupportLevel({isTTY: tty.isatty(2)})
 };
