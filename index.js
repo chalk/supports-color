@@ -55,6 +55,18 @@ function supportsColor(stream) {
 		return 2;
 	}
 
+	const colorDepth = stream.getColorDepth && stream.getColorDepth(process.env);
+	if (colorDepth && forceColor === undefined) {
+		switch (colorDepth) {
+			case 1: return 0;
+			case 4: return 1;
+			case 8: return 2;
+			case 24: return 3;
+			default:
+				break;
+		}
+	}
+
 	if (stream && !stream.isTTY && forceColor === undefined) {
 		return 0;
 	}

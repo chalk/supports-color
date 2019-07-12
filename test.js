@@ -16,6 +16,9 @@ test.beforeEach(() => {
 	process.stdout.isTTY = true;
 	process.argv = [];
 	process.env = {};
+
+	process.stdout._getColorDepth = process.stdout.getColorDepth;
+	process.stdout.getColorDepth = null;
 });
 
 // FIXME
@@ -382,4 +385,29 @@ test('return level 1 when `TERM` is set to dumb when `FORCE_COLOR` is set', t =>
 	const result = importFresh('.');
 	t.truthy(result.stdout);
 	t.is(result.stdout.level, 1);
+});
+
+test('getColorDepth() is used if available', t => {
+	process.stdout.getColorDepth = null;
+	process.stdout.isTTY = false;
+	let result = importFresh('.');
+	t.is(result.stdout, false);
+
+	process.stdout.isTTY = true;
+	process.stdout.getColorDepth = () => 2;
+	result = importFresh('.');
+	t.is(result.stdout, false);
+
+	process.stdout.isTTY = false;
+	process.stdout.getColorDepth = () => 4;
+	result = importFresh('.');
+	t.is(result.stdout.level, 1);
+
+	process.stdout.getColorDepth = () => 8;
+	result = importFresh('.');
+	t.is(result.stdout.level, 2);
+
+	process.stdout.getColorDepth = () => 24;
+	result = importFresh('.');
+	t.is(result.stdout.level, 3);
 });
