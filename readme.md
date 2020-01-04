@@ -5,7 +5,7 @@
 
 ## Install
 
-```
+```shell
 $ npm install supports-color
 ```
 
