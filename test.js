@@ -191,6 +191,12 @@ test('return true if `GITLAB_CI` is in env', t => {
 	t.truthy(result.stdout);
 });
 
+test('return true if `BUILDKITE` is in env', t => {
+	process.env = {CI: true, BUILDKITE: true};
+	const result = importFresh('.');
+	t.truthy(result.stdout);
+});
+
 test('return true if Codeship is in env', t => {
 	process.env = {CI: true, CI_NAME: 'codeship'};
 	const result = importFresh('.');
