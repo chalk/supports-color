@@ -15,7 +15,7 @@ const colorSupport = getChromeVersion() > 69 ? {
 	hasBasic: true,
 	has256: false,
 	has16m: false
-} : false
+} : false;
 
 module.exports = {
 	stdout: colorSupport,
