@@ -1,7 +1,8 @@
+/* eslint-env browser */
 'use strict';
 
 function getChromeVersion() {
-	const matches = /Chrom(e|ium)\/(?<chromeVersion>\d+)\./.exec(navigator.userAgent);
+	const matches = /Chrom(e|ium)\/(?<chromeVersion>\d+)\./.exec(navigator && navigator.userAgent);
 
 	if (!matches) {
 		return undefined;
