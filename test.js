@@ -1,4 +1,5 @@
 import os from 'os';
+import tty from 'tty';
 import {serial as test} from 'ava';
 import importFresh from 'import-fresh';
 
@@ -16,6 +17,7 @@ test.beforeEach(() => {
 	process.stdout.isTTY = true;
 	process.argv = [];
 	process.env = {};
+	tty.isatty = () => true;
 });
 
 // FIXME
