@@ -11,7 +11,7 @@ function getChromeVersion() {
 	return Number.parseInt(matches.groups.chromeVersion, 10);
 }
 
-const colorSupport = getChromeVersion() > 69 ? {
+const colorSupport = getChromeVersion() >= 69 ? {
 	level: 1,
 	hasBasic: true,
 	has256: false,
