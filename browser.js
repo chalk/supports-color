@@ -5,7 +5,7 @@ function getChromeVersion() {
 	const matches = /Chrom(e|ium)\/(?<chromeVersion>\d+)\./.exec(navigator && navigator.userAgent);
 
 	if (!matches) {
-		return undefined;
+		return;
 	}
 
 	return Number.parseInt(matches.groups.chromeVersion, 10);
