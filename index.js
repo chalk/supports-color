@@ -25,7 +25,7 @@ if ('FORCE_COLOR' in env) {
 	} else if (env.FORCE_COLOR === 'false') {
 		noFlagForceColor = 0;
 	} else {
-		noFlagForceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
+		noFlagForceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
 	}
 
 	flagForceColor = noFlagForceColor;
@@ -104,7 +104,7 @@ function supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('TERM_PROGRAM' in env) {
-		const version = parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+		const version = Number.parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
 
 		switch (env.TERM_PROGRAM) {
 			case 'iTerm.app':
