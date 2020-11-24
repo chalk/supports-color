@@ -2,7 +2,7 @@
 'use strict';
 
 function getChromeVersion() {
-	const matches = /(Chrome|Chromium)\/(?<chromeVersion>\d+)\./.exec(navigator && navigator.userAgent);
+	const matches = /(Chrome|Chromium)\/(?<chromeVersion>\d+)\./.exec(navigator.userAgent);
 
 	if (!matches) {
 		return;
