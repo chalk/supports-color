@@ -199,6 +199,12 @@ test('return true if `BUILDKITE` is in env', t => {
 	t.truthy(result.stdout);
 });
 
+test('return true if `DRONE` is in env', t => {
+	process.env = {CI: true, DRONE: true};
+	const result = importFresh('.');
+	t.truthy(result.stdout);
+});
+
 test('return true if Codeship is in env', t => {
 	process.env = {CI: true, CI_NAME: 'codeship'};
 	const result = importFresh('.');
