@@ -51,6 +51,15 @@ test('return false if `FORCE_COLOR` is in env and is 0', t => {
 	t.false(result.stdout);
 });
 
+test('do not cache `FORCE_COLOR`', t => {
+	process.env.FORCE_COLOR = '0';
+	const result = importFresh('.');
+	t.false(result.stdout);
+	process.env.FORCE_COLOR = '1';
+	const updatedStdOut = result.supportsColor({isTTY: tty.isatty(1)});
+	t.truthy(updatedStdOut);
+});
+
 test('return false if not TTY', t => {
 	process.stdout.isTTY = false;
 	const result = importFresh('.');
