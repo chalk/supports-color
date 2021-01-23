@@ -18,17 +18,18 @@ if (hasFlag('no-color') ||
 	flagForceColor = 1;
 }
 
-let noFlagForceColor;
-if ('FORCE_COLOR' in env) {
-	if (env.FORCE_COLOR === 'true') {
-		noFlagForceColor = 1;
-	} else if (env.FORCE_COLOR === 'false') {
-		noFlagForceColor = 0;
-	} else {
-		noFlagForceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
-	}
+function envForceColor() {
+	if ('FORCE_COLOR' in env) {
+		if (env.FORCE_COLOR === 'true') {
+			return 1;
+		}
 
-	flagForceColor = noFlagForceColor;
+		if (env.FORCE_COLOR === 'false') {
+			return 0;
+		}
+
+		return env.FORCE_COLOR.length === 0 ? 1 : Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+	}
 }
 
 function translateLevel(level) {
@@ -45,6 +46,11 @@ function translateLevel(level) {
 }
 
 function supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
+	const noFlagForceColor = envForceColor();
+	if (noFlagForceColor !== undefined) {
+		flagForceColor = noFlagForceColor;
+	}
+
 	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
 
 	if (forceColor === 0) {
