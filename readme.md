@@ -56,6 +56,8 @@ Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=
 
 - [supports-color-cli](https://github.com/chalk/supports-color-cli) - CLI for this module
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right
+- [is-unicode-supported](https://github.com/sindresorhus/is-unicode-supported) - Detect whether the terminal supports Unicode
+- [is-interactive](https://github.com/sindresorhus/is-interactive) - Check if stdout or stderr is interactive
 
 ## Maintainers
 
