@@ -1,7 +1,6 @@
-'use strict';
-const os = require('os');
-const tty = require('tty');
-const hasFlag = require('has-flag');
+import os from 'os';
+import tty from 'tty';
+import hasFlag from 'has-flag';
 
 const {env} = process;
 
@@ -45,7 +44,7 @@ function translateLevel(level) {
 	};
 }
 
-function supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
+function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	const noFlagForceColor = envForceColor();
 	if (noFlagForceColor !== undefined) {
 		flagForceColor = noFlagForceColor;
@@ -136,8 +135,8 @@ function supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	return min;
 }
 
-function getSupportLevel(stream, options = {}) {
-	const level = supportsColor(stream, {
+export function createSupportsColor(stream, options = {}) {
+	const level = _supportsColor(stream, {
 		streamIsTTY: stream && stream.isTTY,
 		...options
 	});
@@ -145,8 +144,9 @@ function getSupportLevel(stream, options = {}) {
 	return translateLevel(level);
 }
 
-module.exports = {
-	supportsColor: getSupportLevel,
-	stdout: getSupportLevel({isTTY: tty.isatty(1)}),
-	stderr: getSupportLevel({isTTY: tty.isatty(2)})
+const supportsColor = {
+	stdout: createSupportsColor({isTTY: tty.isatty(1)}),
+	stderr: createSupportsColor({isTTY: tty.isatty(2)})
 };
+
+export default supportsColor;

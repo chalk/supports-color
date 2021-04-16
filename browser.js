@@ -1,5 +1,4 @@
 /* eslint-env browser */
-'use strict';
 
 function getChromeVersion() {
 	const matches = /(Chrome|Chromium)\/(?<chromeVersion>\d+)\./.exec(navigator.userAgent);
@@ -18,7 +17,9 @@ const colorSupport = getChromeVersion() >= 69 ? {
 	has16m: false
 } : false;
 
-module.exports = {
+const supportsColor = {
 	stdout: colorSupport,
 	stderr: colorSupport
 };
+
+export default supportsColor;

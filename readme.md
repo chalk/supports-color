@@ -11,7 +11,7 @@ $ npm install supports-color
 ## Usage
 
 ```js
-const supportsColor = require('supports-color');
+import supportsColor from 'supports-color';
 
 if (supportsColor.stdout) {
 	console.log('Terminal stdout supports color');
@@ -28,7 +28,7 @@ if (supportsColor.stderr.has16m) {
 
 ## API
 
-Returns an `Object` with a `stdout` and `stderr` property for testing either streams. Each property is an `Object`, or `false` if color is not supported.
+Returns an `object` with a `stdout` and `stderr` property for testing either streams. Each property is an `Object`, or `false` if color is not supported.
 
 The `stdout`/`stderr` objects specifies a level of support for color through a `.level` property and a corresponding flag:
 
@@ -36,13 +36,23 @@ The `stdout`/`stderr` objects specifies a level of support for color through a `
 - `.level = 2` and `.has256 = true`: 256 color support
 - `.level = 3` and `.has16m = true`: Truecolor support (16 million colors)
 
-### `require('supports-color').supportsColor(stream, options?)`
+### Custom instance
 
-Additionally, `supports-color` exposes the `.supportsColor()` function that takes an arbitrary write stream (e.g. `process.stdout`) and an optional options object to (re-)evaluate color support for an arbitrary stream.
+The package also exposes the named export `createSupportColor` function that takes an arbitrary write stream (for example, `process.stdout`) and an optional options object to (re-)evaluate color support for an arbitrary stream.
 
-For example, `require('supports-color').stdout` is the equivalent of `require('supports-color').supportsColor(process.stdout)`.
+```js
+import {createSupportsColor} from 'supports-color';
 
-The options object supports a single boolean property `sniffFlags`. By default it is `true`, which instructs `supportsColor()` to sniff `process.argv` for the multitude of `--color` flags (see _Info_ below). If `false`, then `process.argv` is not considered when determining color support.
+const stdoutSupportsColor = createSupportsColor(process.stdout);
+
+if (stdoutSupportsColor) {
+	console.log('Terminal stdout supports color');
+}
+
+// `stdoutSupportsColor` is the same as `supportsColor.stdout`
+```
+
+The options object supports a single boolean property `sniffFlags`. By default it is `true`, which instructs the detection to sniff `process.argv` for the multitude of `--color` flags (see _Info_ below). If `false`, then `process.argv` is not considered when determining color support.
 
 ## Info
 
