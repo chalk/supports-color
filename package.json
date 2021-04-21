@@ -11,15 +11,20 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
+	"main": "index.cjs",
+	"module": "index.js",
 	"exports": {
 		"node": "./index.js",
-		"default": "./browser.js"
+		"default": "./browser.js",
+		"require": "./index.cjs"
 	},
 	"engines": {
 		"node": ">=12"
 	},
 	"scripts": {
 		"//test": "xo && ava",
+		"build": "babel index.js --out-file index.cjs",
+		"postinstall": "npm run build",
 		"test": "xo"
 	},
 	"files": [
@@ -52,6 +57,9 @@
 		"has-flag": "^5.0.0"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.13.16",
+		"@babel/core": "^7.13.16",
+		"@babel/plugin-transform-modules-commonjs": "^7.13.8",
 		"ava": "^3.15.0",
 		"import-fresh": "^3.3.0",
 		"xo": "^0.38.2"
