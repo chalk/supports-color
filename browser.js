@@ -17,9 +17,9 @@ const colorSupport = getChromeVersion() >= 69 ? {
 	has16m: false
 } : false;
 
-const supportsColor = {
+const supportsColors = {
 	stdout: colorSupport,
 	stderr: colorSupport
 };
 
-export default supportsColor;
+export default supportsColors;
