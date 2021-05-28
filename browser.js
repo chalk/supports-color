@@ -1,13 +1,7 @@
 /* eslint-env browser */
 
 function getChromeVersion() {
-	const matches = /(Chrome|Chromium)\/(?<chromeVersion>\d+)\./.exec(navigator.userAgent);
-
-	if (!matches) {
-		return;
-	}
-
-	return Number.parseInt(matches.groups.chromeVersion, 10);
+	return parseInt(String(navigator.userAgent).split(/\b(Chrome|Chromium)\//).pop());
 }
 
 const colorSupport = getChromeVersion() >= 69 ? {
