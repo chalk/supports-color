@@ -1,10 +1,9 @@
 /* eslint-env browser */
 
-function getChromeVersion() {
-	return parseInt(String(navigator.userAgent).split(/\b(Chrome|Chromium)\//).pop());
-}
+// Check for Blink-based browsers.
+const isBlink = /\b(Chrome|Chromium)\//.test(navigator.userAgent);
 
-const colorSupport = getChromeVersion() >= 69 ? {
+const colorSupport = isBlink ? {
 	level: 1,
 	hasBasic: true,
 	has256: false,
