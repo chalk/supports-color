@@ -1,3 +1,4 @@
+import process from 'process'; // eslint-disable-line node/prefer-global/process
 import os from 'os';
 import tty from 'tty';
 import hasFlag from 'has-flag';
