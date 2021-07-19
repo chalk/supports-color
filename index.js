@@ -1,6 +1,7 @@
 import os from 'os';
 import tty from 'tty';
 import hasFlag from 'has-flag';
+import process from 'process';
 
 const {env} = process;
 
