@@ -1,6 +1,6 @@
 /* eslint-env browser */
 
-const isBlinkBasedBrowser = /\b(Chrome|Chromium)\//.test(navigator.userAgent);
+const isBlinkBasedBrowser = typeof navigator !== 'undefined' ? /\b(Chrome|Chromium)\//.test(navigator.userAgent): false;
 
 const colorSupport = isBlinkBasedBrowser ? {
 	level: 1,
