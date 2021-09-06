@@ -1,9 +1,12 @@
 import process from 'process'; // eslint-disable-line node/prefer-global/process
 import os from 'os';
 import tty from 'tty';
-import hasFlag from 'has-flag';
 
 const {env} = process;
+
+function hasFlag(flag) {
+	return process.argv.includes('--' + flag);
+}
 
 let flagForceColor;
 if (hasFlag('no-color') ||
