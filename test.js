@@ -1,5 +1,6 @@
-import os from 'os';
-import tty from 'tty';
+import process from 'node:process';
+import os from 'node:os';
+import tty from 'node:tty';
 import test from 'ava';
 import importFresh from 'import-fresh';
 
@@ -7,11 +8,11 @@ const currentNodeVersion = process.versions.node;
 
 test.beforeEach(() => {
 	Object.defineProperty(process, 'platform', {
-		value: 'linux'
+		value: 'linux',
 	});
 
 	Object.defineProperty(process.versions, 'node', {
-		value: currentNodeVersion
+		value: currentNodeVersion,
 	});
 
 	process.stdout.isTTY = true;
@@ -258,11 +259,11 @@ test('support putty-256color', t => {
 
 test('level should be 3 when using iTerm 3.0', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'darwin'
+		value: 'darwin',
 	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
-		TERM_PROGRAM_VERSION: '3.0.10'
+		TERM_PROGRAM_VERSION: '3.0.10',
 	};
 	const result = importFresh('./index.js');
 	t.is(result.stdout.level, 3);
@@ -270,11 +271,11 @@ test('level should be 3 when using iTerm 3.0', t => {
 
 test('level should be 2 when using iTerm 2.9', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'darwin'
+		value: 'darwin',
 	});
 	process.env = {
 		TERM_PROGRAM: 'iTerm.app',
-		TERM_PROGRAM_VERSION: '2.9.3'
+		TERM_PROGRAM_VERSION: '2.9.3',
 	};
 	const result = importFresh('./index.js');
 	t.is(result.stdout.level, 2);
@@ -282,10 +283,10 @@ test('level should be 2 when using iTerm 2.9', t => {
 
 test('return level 1 if on Windows earlier than 10 build 10586', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'win32'
+		value: 'win32',
 	});
 	Object.defineProperty(process.versions, 'node', {
-		value: '8.0.0'
+		value: '8.0.0',
 	});
 	os.release = () => '10.0.10240';
 	const result = importFresh('./index.js');
@@ -294,10 +295,10 @@ test('return level 1 if on Windows earlier than 10 build 10586', t => {
 
 test('return level 2 if on Windows 10 build 10586 or later', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'win32'
+		value: 'win32',
 	});
 	Object.defineProperty(process.versions, 'node', {
-		value: '8.0.0'
+		value: '8.0.0',
 	});
 	os.release = () => '10.0.10586';
 	const result = importFresh('./index.js');
@@ -306,10 +307,10 @@ test('return level 2 if on Windows 10 build 10586 or later', t => {
 
 test('return level 3 if on Windows 10 build 14931 or later', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'win32'
+		value: 'win32',
 	});
 	Object.defineProperty(process.versions, 'node', {
-		value: '8.0.0'
+		value: '8.0.0',
 	});
 	os.release = () => '10.0.14931';
 	const result = importFresh('./index.js');
@@ -388,10 +389,10 @@ test('return false when `TERM` is set to dumb when `TERM_PROGRAM` is set', t => 
 
 test('return false when `TERM` is set to dumb when run on Windows', t => {
 	Object.defineProperty(process, 'platform', {
-		value: 'win32'
+		value: 'win32',
 	});
 	Object.defineProperty(process.versions, 'node', {
-		value: '10.13.0'
+		value: '10.13.0',
 	});
 	os.release = () => '10.0.14931';
 	process.env.TERM = 'dumb';

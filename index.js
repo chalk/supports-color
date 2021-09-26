@@ -1,6 +1,6 @@
-import process from 'process'; // eslint-disable-line node/prefer-global/process
-import os from 'os';
-import tty from 'tty';
+import process from 'node:process';
+import os from 'node:os';
+import tty from 'node:tty';
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
 function hasFlag(flag, argv = process.argv) {
@@ -13,15 +13,19 @@ function hasFlag(flag, argv = process.argv) {
 const {env} = process;
 
 let flagForceColor;
-if (hasFlag('no-color') ||
-	hasFlag('no-colors') ||
-	hasFlag('color=false') ||
-	hasFlag('color=never')) {
+if (
+	hasFlag('no-color')
+	|| hasFlag('no-colors')
+	|| hasFlag('color=false')
+	|| hasFlag('color=never')
+) {
 	flagForceColor = 0;
-} else if (hasFlag('color') ||
-	hasFlag('colors') ||
-	hasFlag('color=true') ||
-	hasFlag('color=always')) {
+} else if (
+	hasFlag('color')
+	|| hasFlag('colors')
+	|| hasFlag('color=true')
+	|| hasFlag('color=always')
+) {
 	flagForceColor = 1;
 }
 
@@ -48,7 +52,7 @@ function translateLevel(level) {
 		level,
 		hasBasic: true,
 		has256: level >= 2,
-		has16m: level >= 3
+		has16m: level >= 3,
 	};
 }
 
@@ -65,9 +69,9 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if (sniffFlags) {
-		if (hasFlag('color=16m') ||
-			hasFlag('color=full') ||
-			hasFlag('color=truecolor')) {
+		if (hasFlag('color=16m')
+			|| hasFlag('color=full')
+			|| hasFlag('color=truecolor')) {
 			return 3;
 		}
 
@@ -91,10 +95,10 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
 		const osRelease = os.release().split('.');
 		if (
-			Number(osRelease[0]) >= 10 &&
-			Number(osRelease[2]) >= 10586
+			Number(osRelease[0]) >= 10
+			&& Number(osRelease[2]) >= 10_586
 		) {
-			return Number(osRelease[2]) >= 14931 ? 3 : 2;
+			return Number(osRelease[2]) >= 14_931 ? 3 : 2;
 		}
 
 		return 1;
@@ -146,7 +150,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 export function createSupportsColor(stream, options = {}) {
 	const level = _supportsColor(stream, {
 		streamIsTTY: stream && stream.isTTY,
-		...options
+		...options,
 	});
 
 	return translateLevel(level);
@@ -154,7 +158,7 @@ export function createSupportsColor(stream, options = {}) {
 
 const supportsColor = {
 	stdout: createSupportsColor({isTTY: tty.isatty(1)}),
-	stderr: createSupportsColor({isTTY: tty.isatty(2)})
+	stderr: createSupportsColor({isTTY: tty.isatty(2)}),
 };
 
 export default supportsColor;
