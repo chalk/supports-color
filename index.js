@@ -1,7 +1,14 @@
 import process from 'process'; // eslint-disable-line node/prefer-global/process
 import os from 'os';
 import tty from 'tty';
-import hasFlag from 'has-flag';
+
+// From: https://github.com/sindresorhus/has-flag/blob/main/index.js
+function hasFlag(flag, argv = process.argv) {
+	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
+	const position = argv.indexOf(prefix + flag);
+	const terminatorPosition = argv.indexOf('--');
+	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
+}
 
 const {env} = process;
 
