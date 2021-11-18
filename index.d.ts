@@ -2,7 +2,7 @@ import {WriteStream} from 'node:tty';
 
 export interface Options {
 	/**
-	Whether `process.argv` should be sniffed for --color and --no-color flags.
+	Whether `process.argv` should be sniffed for `--color` and `--no-color` flags.
 
 	@default true
 	*/
