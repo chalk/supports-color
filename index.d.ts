@@ -6,7 +6,7 @@ export interface Options {
 
 	@default true
 	*/
-	sniffFlags?: boolean;
+	readonly sniffFlags?: boolean;
 }
 
 /**
