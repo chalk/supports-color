@@ -1,8 +1,10 @@
-import process from 'node:process';
-import os from 'node:os';
-import tty from 'node:tty';
+/* eslint-disable unicorn/prefer-module */
 
-// End ESM imports
+const process = require('process');
+const os = require('os');
+const tty = require('tty');
+
+// End CommonJS imports
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
 function hasFlag(flag, argv = process.argv) {
@@ -163,11 +165,10 @@ function createSupportsColorInternal(stream, options = {}) {
 	return translateLevel(level);
 }
 
-// Start ESM exports
+// Start CommonJS exports
 
-export const createSupportsColor = createSupportsColorInternal;
-
-export default {
+module.exports = {
+	createSupportsColor: createSupportsColorInternal,
 	stdout: createSupportsColorInternal({isTTY: tty.isatty(1)}),
 	stderr: createSupportsColorInternal({isTTY: tty.isatty(2)}),
 };

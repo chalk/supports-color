@@ -11,10 +11,16 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
+	"main": "./cjs/index.js",
+	"module": "./index.js",
 	"exports": {
-		"node": "./index.js",
+		"node": {
+			"require": "./cjs/index.js",
+			"import": "./index.js"
+		},
 		"default": "./browser.js"
 	},
+	"types": "./index.d.ts",
 	"engines": {
 		"node": ">=12"
 	},
@@ -26,7 +32,8 @@
 		"index.js",
 		"index.d.ts",
 		"browser.js",
-		"browser.d.ts"
+		"browser.d.ts",
+		"cjs/**/*"
 	],
 	"keywords": [
 		"color",
