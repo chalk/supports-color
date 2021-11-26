@@ -1,6 +1,6 @@
 {
 	"name": "supports-color",
-	"version": "9.1.0",
+	"version": "9.2.0",
 	"description": "Detect whether a terminal supports color",
 	"license": "MIT",
 	"repository": "chalk/supports-color",
