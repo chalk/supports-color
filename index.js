@@ -116,6 +116,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
+	// Check for Azure DevOps pipelines
+	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
+		return 1;
+	}
+
 	if (env.COLORTERM === 'truecolor') {
 		return 3;
 	}
