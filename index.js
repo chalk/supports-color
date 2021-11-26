@@ -167,7 +167,9 @@ function createSupportsColorInternal(stream, options = {}) {
 
 export const createSupportsColor = createSupportsColorInternal;
 
-export default {
+const defaultExport = {
 	stdout: createSupportsColorInternal({isTTY: tty.isatty(1)}),
 	stderr: createSupportsColorInternal({isTTY: tty.isatty(2)}),
 };
+
+export default defaultExport;
