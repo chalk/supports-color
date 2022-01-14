@@ -86,7 +86,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 
 	const min = forceColor || 0;
 
-	if (env.TERM === 'dumb') {
+	if (env.TERM === 'dumb' || 'NO_COLOR' in env) {
 		return min;
 	}
 
