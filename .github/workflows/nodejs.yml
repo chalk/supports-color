@@ -1,0 +1,19 @@
+name: Node CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test-ubuntu:
+    uses: ./.github/workflows/test.yml
+    with:
+      os: ubuntu-latest
+  test-macos:
+    uses: ./.github/workflows/test.yml
+    with:
+      os: macos-latest
+  test-windows:
+    uses: ./.github/workflows/test.yml
+    with:
+      os: windows-latest

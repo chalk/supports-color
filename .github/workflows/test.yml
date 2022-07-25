@@ -1,15 +1,21 @@
 name: CI
+
 on:
-  - push
-  - pull_request
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+
 jobs:
   test:
-    name: Node.js ${{ matrix.node-version }}
-    runs-on: ubuntu-latest
+    name: Node.js ${{ matrix.node-version }} on ${{ inputs.os }}
+    runs-on: ${{ inputs.os }}
     strategy:
       fail-fast: false
       matrix:
         node-version:
+          - 18
           - 16
           - 14
           - 12
