@@ -317,6 +317,18 @@ test('return level 3 if on Windows 10 build 14931 or later', t => {
 	t.is(result.stdout.level, 3);
 });
 
+test('return level 1 if os release is undefined', t => {
+	Object.defineProperty(process, 'platform', {
+		value: 'win32',
+	});
+	Object.defineProperty(process.versions, 'node', {
+		value: '8.0.0',
+	});
+	os.release = () => undefined;
+	const result = importFresh('./index.js');
+	t.is(result.stdout.level, 1);
+});
+
 test('return level 2 when FORCE_COLOR is set when not TTY in xterm256', t => {
 	process.stdout.isTTY = false;
 	process.env.FORCE_COLOR = true;
