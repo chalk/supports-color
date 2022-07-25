@@ -91,14 +91,19 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if (process.platform === 'win32') {
-		// Windows 10 build 10586 is the first Windows release that supports 256 colors.
-		// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
-		const osRelease = os.release().split('.');
-		if (
-			Number(osRelease[0]) >= 10
-			&& Number(osRelease[2]) >= 10_586
-		) {
-			return Number(osRelease[2]) >= 14_931 ? 3 : 2;
+		// Optional chaining support didn't drop until Node 14 so using the long-form.
+		const osRelease = os.release();
+
+		if (osRelease) {
+			// Windows 10 build 10586 is the first Windows release that supports 256 colors.
+			// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
+			const splitOsRelease = osRelease.split('.');
+			if (
+				Number(splitOsRelease[0]) >= 10
+				&& Number(splitOsRelease[2]) >= 10_586
+			) {
+				return Number(splitOsRelease[2]) >= 14_931 ? 3 : 2;
+			}
 		}
 
 		return 1;
