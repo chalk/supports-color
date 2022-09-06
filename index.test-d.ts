@@ -9,5 +9,6 @@ expectType<ColorInfo>(supportsColor.stderr);
 
 expectType<ColorInfo>(createSupportsColor(stdout));
 expectType<ColorInfo>(createSupportsColor(stderr));
+expectType<ColorInfo>(createSupportsColor(undefined));
 
 expectType<ColorInfo>(createSupportsColor(stdout, options));
