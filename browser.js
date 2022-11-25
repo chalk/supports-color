@@ -1,13 +1,5 @@
 /* eslint-env browser */
 
-function getFirefoxVersion() {
-	const matches = /(Firefox)\/(?<version>\d+)\./.exec(navigator.userAgent);
-	if (!matches) {
-		return
-	}
-	return Number.parseInt(matches.groups.version, 10)
-}
-
 function translateLevel(level) {
 	if (level === 0) {
 		return false;
@@ -27,9 +19,6 @@ function check() {
 		if (brand && brand.version > 100) {
 			return 3
 		}
-	}
-	if (getFirefoxVersion() && getFirefoxVersion() > 100) {
-		return 3
 	}
 	if (/\b(Chrome|Chromium)\//.test(navigator.userAgent)) {
 		return 1
