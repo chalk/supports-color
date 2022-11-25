@@ -16,7 +16,7 @@ function translateLevel(level) {
 function check() {
 	if (navigator.userAgentData) {
 		const brand = navigator.userAgentData.brands.find(({ brand }) => brand === 'Chromium');
-		if (brand && brand.version > 100) {
+		if (brand && brand.version > 93) {
 			return 3
 		}
 	}
