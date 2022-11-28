@@ -3,7 +3,7 @@ import os from 'node:os';
 import tty from 'node:tty';
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
-function hasFlag(flag, argv = process.argv) {
+function hasFlag(flag, argv = typeof Deno !== 'undefined' ? Deno.args : process.argv) {
 	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
 	const position = argv.indexOf(prefix + flag);
 	const terminatorPosition = argv.indexOf('--');
@@ -84,6 +84,10 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return 0;
 	}
 
+	if (env.COLORTERM === 'truecolor') {
+		return 3;
+	}
+
 	const min = forceColor || 0;
 
 	if (env.TERM === 'dumb') {
@@ -119,10 +123,6 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	// Check for Azure DevOps pipelines
 	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
 		return 1;
-	}
-
-	if (env.COLORTERM === 'truecolor') {
-		return 3;
 	}
 
 	if ('TERM_PROGRAM' in env) {
