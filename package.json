@@ -13,6 +13,7 @@
 	"type": "module",
 	"exports": {
 		"node": "./index.js",
+		"deno": "./deno.js",
 		"default": "./browser.js"
 	},
 	"engines": {
@@ -26,7 +27,9 @@
 		"index.js",
 		"index.d.ts",
 		"browser.js",
-		"browser.d.ts"
+		"browser.d.ts",
+		"deno.js",
+		"deno.d.ts"
 	],
 	"keywords": [
 		"color",
@@ -56,6 +59,7 @@
 		"import-fresh": "^3.3.0",
 		"tsd": "^0.18.0",
 		"typescript": "^4.4.3",
-		"xo": "^0.44.0"
+		"xo": "^0.44.0",
+		"@deno/shim-deno": "^0.10.0"
 	}
 }
