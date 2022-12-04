@@ -4,6 +4,7 @@ function translateLevel(level) {
 	if (level === 0) {
 		return false;
 	}
+
 	return {
 		level,
 		hasBasic: true,
@@ -14,15 +15,17 @@ function translateLevel(level) {
 
 function check() {
 	if (navigator.userAgentData) {
-		const brand = navigator.userAgentData.brands.find(({ brand }) => brand === 'Chromium');
+		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
 		if (brand && brand.version > 93) {
-			return 3
+			return 3;
 		}
 	}
+
 	if (/\b(Chrome|Chromium)\//.test(navigator.userAgent)) {
-		return 1
+		return 1;
 	}
-	return 0
+
+	return 0;
 }
 
 const colorSupport = translateLevel(check());
