@@ -1,22 +1,9 @@
 /* eslint-env browser */
 
-function translateLevel(level) {
-	if (level === 0) {
-		return false;
-	}
-
-	return {
-		level,
-		hasBasic: true,
-		has256: level >= 2,
-		has16m: level >= 3,
-	};
-}
-
-const checkResult = (() => {
+const level = (() => {
 	if (navigator.userAgentData) {
 		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
-		if (brand?.version > 93) {
+		if (brand && brand.version > 93) {
 			return 3;
 		}
 	}
@@ -28,7 +15,18 @@ const checkResult = (() => {
 	return 0;
 })();
 
-const colorSupport = translateLevel(checkResult);
+const colorSupport = (() => {
+	if (level === 0) {
+		return false;
+	}
+
+	return {
+		level,
+		hasBasic: true,
+		has256: level >= 2,
+		has16m: level >= 3,
+	};
+});
 
 const supportsColor = {
 	stdout: colorSupport,
