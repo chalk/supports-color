@@ -26,7 +26,7 @@ const colorSupport = (() => {
 		has256: level >= 2,
 		has16m: level >= 3,
 	};
-});
+})();
 
 const supportsColor = {
 	stdout: colorSupport,
