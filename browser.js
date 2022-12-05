@@ -13,7 +13,7 @@ function translateLevel(level) {
 	};
 }
 
-function check() {
+const checkResult = (() => {
 	if (navigator.userAgentData) {
 		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
 		if (brand && brand.version > 93) {
@@ -26,9 +26,9 @@ function check() {
 	}
 
 	return 0;
-}
+})();
 
-const colorSupport = translateLevel(check());
+const colorSupport = translateLevel(checkResult);
 
 const supportsColor = {
 	stdout: colorSupport,
