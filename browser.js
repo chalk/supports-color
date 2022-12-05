@@ -15,18 +15,12 @@ const level = (() => {
 	return 0;
 })();
 
-const colorSupport = (() => {
-	if (level === 0) {
-		return false;
-	}
-
-	return {
-		level,
-		hasBasic: true,
-		has256: level >= 2,
-		has16m: level >= 3,
-	};
-})();
+const colorSupport = level !== 0 && {
+	level,
+	hasBasic: true,
+	has256: level >= 2,
+	has16m: level >= 3,
+};
 
 const supportsColor = {
 	stdout: colorSupport,
