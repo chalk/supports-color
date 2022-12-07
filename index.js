@@ -80,7 +80,8 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
-	// Check for Azure DevOps pipelines
+	// Check for Azure DevOps pipelines.
+	// Has to be above the `!streamIsTTY` check.
 	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
 		return 1;
 	}
