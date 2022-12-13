@@ -1,4 +1,4 @@
-import {WriteStream} from 'node:tty';
+import type {WriteStream} from 'node:tty';
 
 export interface Options {
 	/**
