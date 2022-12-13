@@ -1,13 +1,13 @@
 import type {WriteStream} from 'node:tty';
 
-export type Options = {
+export interface Options {
 	/**
 	Whether `process.argv` should be sniffed for `--color` and `--no-color` flags.
 
 	@default true
 	*/
 	readonly sniffFlags?: boolean;
-};
+}
 
 /**
 Levels:
