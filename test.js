@@ -215,6 +215,12 @@ test('return true if `DRONE` is in env', t => {
 	t.truthy(result.stdout);
 });
 
+test('return 1 if both `GITHUB_ACTIONS` and `GITEA_ACTIONS` are in env', t => {
+	process.env = {CI: true, GITHUB_ACTIONS: true, GITEA_ACTIONS: true};
+	const result = importFresh('./index.js');
+	t.is(result.stdout.level, 1);
+});
+
 test('return true if Codeship is in env', t => {
 	process.env = {CI: true, CI_NAME: 'codeship'};
 	const result = importFresh('./index.js');
