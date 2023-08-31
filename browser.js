@@ -1,17 +1,18 @@
 /* eslint-env browser */
 
 const level = (() => {
-	if (navigator.userAgentData) {
-		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
-		if (brand?.version > 93) {
-			return 3;
+	if (typeof navigator !== 'undefined') {
+		if (navigator.userAgentData) {
+			const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
+			if (brand?.version > 93) {
+				return 3;
+			}
+		}
+
+		if (/\b(Chrome|Chromium)\//.test(navigator.userAgent)) {
+			return 1;
 		}
 	}
-
-	if (/\b(Chrome|Chromium)\//.test(navigator.userAgent)) {
-		return 1;
-	}
-
 	return 0;
 })();
 
