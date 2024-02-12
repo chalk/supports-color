@@ -65,8 +65,8 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 
 	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
 
-	if (forceColor === 0) {
-		return 0;
+	if (forceColor !== undefined) {
+		return forceColor;
 	}
 
 	if (sniffFlags) {
@@ -91,7 +91,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		return 0;
 	}
 
-	const min = forceColor || 0;
+	const min = 0;
 
 	if (env.TERM === 'dumb') {
 		return min;
