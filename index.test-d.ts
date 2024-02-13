@@ -1,6 +1,6 @@
 import {stdout, stderr} from 'node:process';
 import {expectType} from 'tsd';
-import supportsColor, {createSupportsColor, Options, ColorInfo} from './index.js';
+import supportsColor, {createSupportsColor, type Options, type ColorInfo} from './index.js';
 
 const options: Options = {};
 
