@@ -46,6 +46,22 @@ test('return true if `FORCE_COLOR` is in env, but honor 256 #2', t => {
 	t.is(result.stdout.level, 2);
 });
 
+test('CLI color flags precede other color support checks', t => {
+	process.env.COLORTERM = 'truecolor';
+	process.argv = ['--color=256'];
+	const result = importFresh('./index.js');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2)
+});
+
+test('`FORCE_COLOR` environment variable precedes other color support checks', t => {
+	process.env.COLORTERM = 'truecolor';
+	process.env.FORCE_COLOR = '2';
+	const result = importFresh('./index.js');
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2)
+});
+
 test('return false if `FORCE_COLOR` is in env and is 0', t => {
 	process.env.FORCE_COLOR = '0';
 	const result = importFresh('./index.js');
