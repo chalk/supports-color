@@ -22,7 +22,7 @@
 		"node": ">=18"
 	},
 	"scripts": {
-		"test": "xo && ava && tsd",
+		"test": "xo --ignore=index.cjs && ava && tsd",
 		"build:cjs": "esbuild index.js --bundle --platform=node --format=cjs --target=node18 --outfile=index.cjs"
 	},
 	"files": [
