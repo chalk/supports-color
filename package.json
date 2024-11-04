@@ -27,6 +27,7 @@
 	},
 	"files": [
 		"index.js",
+		"index.cjs",
 		"index.d.ts",
 		"browser.js",
 		"browser.d.ts"
