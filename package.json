@@ -13,7 +13,8 @@
 	"type": "module",
 	"exports": {
 		"types": "./index.d.ts",
-		"node": "./index.js",
+		"require": "./index.cjs",
+    "import": "./index.js",
 		"default": "./browser.js"
 	},
 	"sideEffects": false,
@@ -21,7 +22,8 @@
 		"node": ">=18"
 	},
 	"scripts": {
-		"test": "xo && ava && tsd"
+		"test": "xo && ava && tsd",
+		"build:cjs": "esbuild index.js --bundle --platform=node --format=cjs --target=node18 --outfile=index.cjs"
 	},
 	"files": [
 		"index.js",
@@ -54,6 +56,7 @@
 	"devDependencies": {
 		"@types/node": "^20.11.17",
 		"ava": "^6.1.1",
+		"esbuild": "^0.24.0",
 		"tsd": "^0.30.4",
 		"xo": "^0.57.0"
 	},
