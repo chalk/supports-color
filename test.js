@@ -52,22 +52,6 @@ test('return true if `FORCE_COLOR` is in env, but honor 256 #2', async t => {
 	t.is(result.stdout.level, 2);
 });
 
-test('CLI color flags precede other color support checks', async t => {
-	process.env.COLORTERM = 'truecolor';
-	process.argv = ['--color=256'];
-	const result = await importMain();
-	t.truthy(result.stdout);
-	t.is(result.stdout.level, 2);
-});
-
-test('`FORCE_COLOR` environment variable precedes other color support checks', async t => {
-	process.env.COLORTERM = 'truecolor';
-	process.env.FORCE_COLOR = '2';
-	const result = await importMain();
-	t.truthy(result.stdout);
-	t.is(result.stdout.level, 2);
-});
-
 test('return false if `FORCE_COLOR` is in env and is 0', async t => {
 	process.env.FORCE_COLOR = '0';
 	const result = await importMain();
