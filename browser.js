@@ -1,4 +1,5 @@
 /* eslint-env browser */
+/* eslint-disable n/no-unsupported-features/node-builtins */
 
 const level = (() => {
 	if (!('navigator' in globalThis)) {
