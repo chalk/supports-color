@@ -191,10 +191,10 @@ test('return true if `TRAVIS` is in env', async t => {
 	t.truthy(result.stdout);
 });
 
-test('return true if `CIRCLECI` is in env', async t => {
+test('return level 3 if `CIRCLECI` is in env', async t => {
 	process.env = {CI: true, CIRCLECI: true};
 	const result = await importMain();
-	t.truthy(result.stdout);
+	t.is(result.stdout.level, 3);
 });
 
 test('return true if `APPVEYOR` is in env', async t => {
