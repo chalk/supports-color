@@ -104,6 +104,9 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	const min = forceColor || 0;
+	// When FORCE_COLOR is explicitly set, cap detected level to respect user's choice.
+	// See: https://github.com/chalk/supports-color/issues/131
+	const cap = forceColor !== undefined ? forceColor : Infinity;
 
 	if (env.TERM === 'dumb') {
 		return min;
@@ -117,42 +120,42 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 			Number(osRelease[0]) >= 10
 			&& Number(osRelease[2]) >= 10_586
 		) {
-			return Number(osRelease[2]) >= 14_931 ? 3 : 2;
+			return Math.min(Number(osRelease[2]) >= 14_931 ? 3 : 2, cap);
 		}
 
-		return 1;
+		return Math.min(1, cap);
 	}
 
 	if ('CI' in env) {
 		if (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI'].some(key => key in env)) {
-			return 3;
+			return Math.min(3, cap);
 		}
 
 		if (['TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
-			return 1;
+			return Math.min(1, cap);
 		}
 
 		return min;
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
-		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? Math.min(1, cap) : 0;
 	}
 
 	if (env.COLORTERM === 'truecolor') {
-		return 3;
+		return Math.min(3, cap);
 	}
 
 	if (env.TERM === 'xterm-kitty') {
-		return 3;
+		return Math.min(3, cap);
 	}
 
 	if (env.TERM === 'xterm-ghostty') {
-		return 3;
+		return Math.min(3, cap);
 	}
 
 	if (env.TERM === 'wezterm') {
-		return 3;
+		return Math.min(3, cap);
 	}
 
 	if ('TERM_PROGRAM' in env) {
@@ -160,26 +163,26 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 
 		switch (env.TERM_PROGRAM) {
 			case 'iTerm.app': {
-				return version >= 3 ? 3 : 2;
+				return Math.min(version >= 3 ? 3 : 2, cap);
 			}
 
 			case 'Apple_Terminal': {
-				return 2;
+				return Math.min(2, cap);
 			}
 			// No default
 		}
 	}
 
 	if (/-256(color)?$/i.test(env.TERM)) {
-		return 2;
+		return Math.min(2, cap);
 	}
 
 	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)) {
-		return 1;
+		return Math.min(1, cap);
 	}
 
 	if ('COLORTERM' in env) {
-		return 1;
+		return Math.min(1, cap);
 	}
 
 	return min;
