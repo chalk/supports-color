@@ -36,15 +36,15 @@ function envForceColor() {
 	}
 
 	if (env.FORCE_COLOR === 'true') {
-		return 1;
+		return {level: 1, explicit: false};
 	}
 
 	if (env.FORCE_COLOR === 'false') {
-		return 0;
+		return {level: 0, explicit: false};
 	}
 
 	if (env.FORCE_COLOR.length === 0) {
-		return 1;
+		return {level: 1, explicit: false};
 	}
 
 	const level = Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
@@ -53,7 +53,7 @@ function envForceColor() {
 		return;
 	}
 
-	return level;
+	return {level, explicit: true};
 }
 
 function translateLevel(level) {
@@ -70,12 +70,15 @@ function translateLevel(level) {
 }
 
 function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
-	const noFlagForceColor = envForceColor();
+	const envColor = envForceColor();
+	const noFlagForceColor = envColor?.level;
+	const noFlagExplicit = envColor?.explicit ?? false;
 	if (noFlagForceColor !== undefined) {
 		flagForceColor = noFlagForceColor;
 	}
 
 	const forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
+	const forceColorExplicit = sniffFlags ? false : noFlagExplicit;
 
 	if (forceColor === 0) {
 		return 0;
@@ -104,6 +107,13 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	const min = forceColor || 0;
+
+	// When FORCE_COLOR is an explicit numeric value (e.g. FORCE_COLOR=2),
+	// cap the detected level so environment detection doesn't override it.
+	// FORCE_COLOR='true' only sets a minimum (allows higher levels from env).
+	function cap(level) {
+		return forceColorExplicit ? Math.min(level, forceColor) : level;
+	}
 
 	if (env.TERM === 'dumb') {
 		return min;
