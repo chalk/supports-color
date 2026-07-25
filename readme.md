@@ -58,9 +58,9 @@ The options object supports a single boolean property `sniffFlags`. By default i
 
 It obeys the `--color` and `--no-color` CLI flags.
 
-For situations where using `--color` is not possible, use the environment variable `FORCE_COLOR=1` (level 1), `FORCE_COLOR=2` (level 2), or `FORCE_COLOR=3` (level 3) to forcefully enable color, or `FORCE_COLOR=0` to forcefully disable. A numeric `FORCE_COLOR` overrides all other color support checks and is used as-is, meaning the terminal cannot raise it to a higher level. Use `FORCE_COLOR=true` to instead only enable color and let the level be detected.
+For situations where using `--color` is not possible, use the environment variable `FORCE_COLOR=1` (level 1), `FORCE_COLOR=2` (level 2), or `FORCE_COLOR=3` (level 3) to forcefully enable color, or `FORCE_COLOR=0` to forcefully disable. A numeric `FORCE_COLOR` overrides the detected color support and sets the level directly, meaning the terminal cannot raise it to a higher level. Use `FORCE_COLOR=true` to instead only enable color and let the level be detected.
 
-Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively.
+Explicit 256/Truecolor mode can be enabled using the `--color=256` and `--color=16m` flags, respectively. These take precedence over a non-zero numeric `FORCE_COLOR`.
 
 ## Related
 

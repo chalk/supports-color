@@ -18,7 +18,7 @@
 	},
 	"sideEffects": false,
 	"engines": {
-		"node": ">=18"
+		"node": ">=22"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -52,10 +52,10 @@
 		"16m"
 	],
 	"devDependencies": {
-		"@types/node": "^22.10.2",
-		"ava": "^6.2.0",
-		"tsd": "^0.31.2",
-		"xo": "^0.60.0"
+		"@types/node": "^26.1.1",
+		"ava": "^8.0.1",
+		"tsd": "^0.33.0",
+		"xo": "^4.0.0"
 	},
 	"ava": {
 		"serial": true,

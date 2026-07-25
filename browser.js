@@ -1,19 +1,17 @@
-/* eslint-env browser */
-/* eslint-disable n/no-unsupported-features/node-builtins */
-
 const level = (() => {
 	if (!('navigator' in globalThis)) {
 		return 0;
 	}
 
-	if (globalThis.navigator.userAgentData) {
+	if (navigator.userAgentData) {
 		const brand = navigator.userAgentData.brands.find(({brand}) => brand === 'Chromium');
 		if (brand?.version > 93) {
 			return 3;
 		}
 	}
 
-	if (/\b(Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
+	// eslint-disable-next-line require-unicode-regexp -- This entry point supports browsers without Unicode Sets.
+	if (/\b(?:Chrome|Chromium)\//.test(navigator.userAgent)) {
 		return 1;
 	}
 

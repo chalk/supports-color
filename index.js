@@ -47,7 +47,11 @@ function envForceColor() {
 		return 1;
 	}
 
-	const level = Math.min(Number.parseInt(env.FORCE_COLOR, 10), 3);
+	if (!/^\d+$/v.test(env.FORCE_COLOR)) {
+		return;
+	}
+
+	const level = Math.min(Number(env.FORCE_COLOR), 3);
 
 	if (![0, 1, 2, 3].includes(level)) {
 		return;
@@ -69,6 +73,7 @@ function translateLevel(level) {
 	};
 }
 
+// eslint-disable-next-line complexity -- Color support detection necessarily handles multiple environments.
 function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	const noFlagForceColor = envForceColor();
 	if (noFlagForceColor !== undefined) {
@@ -94,7 +99,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	// A numeric `FORCE_COLOR` requests an exact level, while `FORCE_COLOR=true` and `FORCE_COLOR=` only enable color and let the level be detected.
-	if (forceColor !== undefined && /^\d+$/.test(env.FORCE_COLOR)) {
+	if (forceColor !== undefined && /^\d+$/v.test(env.FORCE_COLOR)) {
 		return forceColor;
 	}
 
@@ -129,11 +134,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('CI' in env) {
-		if (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI'].some(key => key in env)) {
+		if (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI'].some(key => Object.hasOwn(env, key))) {
 			return 3;
 		}
 
-		if (['TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
+		if (['TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => Object.hasOwn(env, sign)) || env.CI_NAME === 'codeship') {
 			return 1;
 		}
 
@@ -141,7 +146,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
-		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+		return /^(?:9\.0*[1-9]\d*\.|\d{2,}\.)/v.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
 	if (env.COLORTERM === 'truecolor') {
@@ -161,7 +166,7 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 	}
 
 	if ('TERM_PROGRAM' in env) {
-		const version = Number.parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+		const version = Number((env.TERM_PROGRAM_VERSION || '').split('.', 1)[0]);
 
 		switch (env.TERM_PROGRAM) {
 			case 'iTerm.app': {
@@ -175,11 +180,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
-	if (/-256(color)?$/i.test(env.TERM)) {
+	if (/-256(?:color)?$/iv.test(env.TERM)) {
 		return 2;
 	}
 
-	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)) {
+	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/iv.test(env.TERM)) {
 		return 1;
 	}
 

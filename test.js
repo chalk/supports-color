@@ -400,6 +400,14 @@ test('a non-numeric FORCE_COLOR is ignored', async t => {
 	t.false(result.stdout);
 });
 
+test('a partially numeric FORCE_COLOR is ignored', async t => {
+	process.env.FORCE_COLOR = '1abc';
+	process.env.TERM = 'xterm-256color';
+	const result = await importMain();
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+});
+
 test('FORCE_COLOR works when set via command line (all values are strings)', async t => {
 	let result;
 	process.env.FORCE_COLOR = 'true';
