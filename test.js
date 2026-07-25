@@ -367,6 +367,39 @@ test('FORCE_COLOR maxes out at a value of 3', async t => {
 	t.is(result.stdout.level, 3);
 });
 
+test('a numeric FORCE_COLOR is an exact level, not a minimum', async t => {
+	let result;
+	process.env.FORCE_COLOR = '1';
+	process.env.COLORTERM = 'truecolor';
+	result = await importMain();
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+
+	process.env.FORCE_COLOR = '2';
+	process.env.TERM = 'xterm-kitty';
+	result = await importMain();
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 2);
+});
+
+test('a numeric FORCE_COLOR is an exact level in CI', async t => {
+	process.env.FORCE_COLOR = '1';
+	process.env.CI = 'true';
+	process.env.GITHUB_ACTIONS = 'true';
+	const result = await importMain();
+	t.truthy(result.stdout);
+	t.is(result.stdout.level, 1);
+});
+
+test('a non-numeric FORCE_COLOR is ignored', async t => {
+	process.stdout.isTTY = false;
+	tty.isatty = () => false;
+	process.env.FORCE_COLOR = 'unicorn';
+	process.env.COLORTERM = 'truecolor';
+	const result = await importMain();
+	t.false(result.stdout);
+});
+
 test('FORCE_COLOR works when set via command line (all values are strings)', async t => {
 	let result;
 	process.env.FORCE_COLOR = 'true';

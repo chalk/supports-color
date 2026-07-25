@@ -93,6 +93,11 @@ function _supportsColor(haveStream, {streamIsTTY, sniffFlags = true} = {}) {
 		}
 	}
 
+	// A numeric `FORCE_COLOR` requests an exact level, while `FORCE_COLOR=true` and `FORCE_COLOR=` only enable color and let the level be detected.
+	if (forceColor !== undefined && /^\d+$/.test(env.FORCE_COLOR)) {
+		return forceColor;
+	}
+
 	// Check for Azure DevOps pipelines.
 	// Has to be above the `!streamIsTTY` check.
 	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
